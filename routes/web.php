@@ -21,11 +21,12 @@ Auth::routes(['verify' => true]);
 Route::middleware('verified')->group(function(){
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/users/details/{name}',DetailUsersController::class);
 
-    Route::get('/users/update/{name}', [UpdateUserController::class, 'index']);
-    Route::put('/users/update/submit', [UpdateUserController::class, 'updateUser']);
+    Route::controller(UpdateUserController::class)->group(function (){
+        Route::get('/users/update/{name}','index');
+        Route::put('/users/update/submit','updateUser');
+    });
 });
 
