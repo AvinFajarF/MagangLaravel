@@ -40,7 +40,7 @@
                 <td>{{$users->tanggal_lahir}}</td>
                 <td>{{$users->role}}</td>
                 <td>{{$users->alamat}}</td>
-                <td><a href="/users/update/{{$users->id}}/{{$users->slug}}" class="btn btn-primary">Update</a></td>
+                <td><a href="/users/update/{{$users->id}}" class="btn btn-primary">Update</a></td>
               </tr>
             </tbody>
         </table>

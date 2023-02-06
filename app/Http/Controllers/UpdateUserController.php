@@ -24,34 +24,49 @@ class UpdateUserController extends Controller
     public function updateUser(Request $request, User $name)
     {
 
-        // dd('TESTER');
+
+        // Request image
+        if ($request->file('images')) {
+            $extension = $request->file('images')->getClientOriginalExtension();
+            $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
+            $request->file('images')->storeAs('images', $newImagesName);
+        }
 
 
+
+
+
+        // Validasi request inputan users
         $request->validate(
             [
                 'name' => 'string',
                 'tanggal_lahir' => 'date',
                 'jenis_kelamin' => 'string',
                 'alamat' => 'string',
+                'images' => 'mimes:jpeg,jpg,png'
             ],
             [
                 'name.string' => 'name harus string',
                 'tanggal_lahir.date' => 'harus berformat X-X-XXXX',
                 'jenis_kelamin.string' => 'jenis kelamin harus string',
                 'alamat.string' => 'alamat harus string',
+                'images.mimes' => 'Foto harus berextension jpeg,jpg,png',
             ]
         );
 
-        $data =
-            [
-                'name' => $request->name,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'alamat' => $request->alamat,
-            ];
+        // $data =
+        //     [
+        //         'name' => $request->name,
+        //         'tanggal_lahir' => $request->tanggal_lahir,
+        //         'jenis_kelamin' => $request->jenis_kelamin,
+        //         'alamat' => $request->alamat,
+        //         'images' => $request->images
+        //     ];
 
+        $request['images'] = $newImagesName;
+        dd($request->all(),$newImagesName);
         $users = Auth::user();
         $findUser = User::find($users->id);
-        $findUser->update($data);
+        $findUser->update($request->all());
     }
 }
