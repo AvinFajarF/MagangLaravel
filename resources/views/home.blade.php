@@ -6,6 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {{-- CSS Link --}}
+
+    <link rel="stylesheet" href="{!! asset('assets/css/profile.css') !!}">
+
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,7 +23,55 @@
 
 
     <div class="container">
-        <p class="text-center"><strong>Detail User</strong></p><br>
+
+        <section class="section about-section gray-bg" id="about">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-lg-6">
+                        <div class="about-text go-to">
+                            <h3 class="dark-color">Details users</h3>
+                            <div class="row about-list">
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <label>Tanggal Lahir</label>
+                                        <p>{{ $users->tanggal_lahir }}</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>role</label>
+                                        <p>{{ $users->role }}</p>
+                                    </div>
+
+                                    <div class="media">
+                                        <label>Username </label>
+                                        <p>{{ $users->name }}</p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <label>E-mail</label>
+                                        <p>{{ $users->email }}</p>
+                                    </div>
+                                    <div class="media">
+                                        <label>Jenis Kelamin</label>
+                                        <p>{{ $users->jenis_kelamin }}</p>
+                                    </div><br>
+                                    <a href="/users/update/{{ $users->id }}" class="btn btn-primary">Update</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-avatar">
+                            <img id="image" class="rounded-circle shadow-4-strong" src="{{ asset('storage/images/' . $users->images) }}" title="" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        {{-- <p class="text-center"><strong>Detail User</strong></p><br>
         <table class="table">
             <thead>
                 <tr>
@@ -44,7 +96,7 @@
                 </tr>
             </tbody>
         </table>
-        <img class="rounded mx-auto d-block" src="{{ asset('storage/images/' . $users->images) }}" width="200" alt="" srcset="">
+        <img class="rounded mx-auto d-block" src="{{ asset('storage/images/' . $users->images) }}" width="200" alt="" srcset=""> --}}
 
     </div>
 

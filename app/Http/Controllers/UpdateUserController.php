@@ -49,6 +49,7 @@ class UpdateUserController extends Controller
         if ($request->file('images')) {
             $extension = $request->file('images')->getClientOriginalExtension();
             $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
+
             $request->file('images')->storeAs('images', $newImagesName);
         }
 
@@ -66,5 +67,7 @@ class UpdateUserController extends Controller
         $users = Auth::user();
         $findUser = User::find($users->id);
         $findUser->update($data);
+
+        return redirect('/home');
     }
 }
