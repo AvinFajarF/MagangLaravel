@@ -12,12 +12,12 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @if (Auth::user()->images)
-                    <img src="{{ Storage::url(Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('storage/images/' . $users->images) }}" class="img-circle elevation-2" alt="User Image">
                 @else
                     <img id="images-default" src="{{ asset('images/person-default-23122312.gif') }}" class="img-circle " alt="User Image">
                 @endif
             </div>
-          
+
             <div class="info">
                 <a href="{{ route('my.profile.index') }}" class="d-block">{{ auth()->user()->name }}</a>
 

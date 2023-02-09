@@ -26,7 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
      */
 
      protected $attributes = [
-        'images' => ''
+        'images' => '',
+        'role' => 'admin',
      ];
 
     protected $fillable = [
