@@ -49,7 +49,7 @@ Route::middleware('verified')->group(function(){
         Route::controller(UserController::class)->group(function () {
             Route::get('/list',  'list')->name('user.list');
             Route::get('/',  'index')->name('user.index');
-            Route::delete('/delete', 'destroy')->name('destroy');
+            Route::delete('/delete/{user}', 'destroy')->name('destroy');
         });
     });
 

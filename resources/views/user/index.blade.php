@@ -50,21 +50,7 @@
             });
         });
 
-        function deleteRecord(user_id,row_index) {
-$.ajax({
-        url:"{{route('destroy')}}",
-        type: 'POST',
-        data: {
-              "id": user_id,
-              "_token": token,
-              },
-        success: function ()
-             {
-              var i = row_index.parentNode.parentNode.rowIndex;
-              document.getElementById("table1").deleteRow(i);
-            }
-     });
-}
+
 
     </script>
 @endpush

@@ -12,14 +12,13 @@ class UserController extends Controller
         {
             return datatables()
                 ->eloquent(User::query()->latest())
-                ->addColumn('action', function () {
+                ->addColumn('action', function ($user) {
                     return '
-                    <form action="/user/delete" method="POST">
+                    <form action="'.route('destroy', $user->id) .'" method="POST">
                     <input type="hidden" name="_token" value="'. @csrf_token() .'">
                     <input type="hidden" name="_method" value="DELETE">
                     <button class="btn btn-sm btn-danger mr-2">
                     <i class="fa fa-trash"></i>
-                    <button type="button" id="{{$lead->id}}"  name="{{$lead->id}}" onclick="deleteRecord(this.id,this)" data-token="{{ csrf_token() }}">Delete</button>
                     </button>
                     </td>
                 </form>
@@ -35,9 +34,9 @@ class UserController extends Controller
             return view('user.index');
         }
 
-    public function destroy(Request $request)
+    public function destroy(User $user)
     {
-        dd($request->id,$request->all());
+       $user->delete();
     }
 
 }

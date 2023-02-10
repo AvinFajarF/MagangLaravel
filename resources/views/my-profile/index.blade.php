@@ -84,9 +84,9 @@
                                             value="Laki-Laki"
                                         >Laki-Laki</option>
                                         <option
-                                            {{ old('gender', auth()->user()->gender) === "Perempuan" ? 'selected' : '' }}
-                                            value="Perempuan"
-                                        >Perempuan</option>
+                                            {{ old('gender', auth()->user()->gender) === "wanita" ? 'selected' : '' }}
+                                            value="wanita"
+                                        >wanita</option>
                                     </select>
 
                                     @error('gender')
