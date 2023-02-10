@@ -4,6 +4,17 @@
 @endpush
 
 @section('content')
+
+@if(session('success'))
+<div class="container-fluid">
+    <div class="row">
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+  	</div>
+</div>
+@endif
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="row justify-content-center">
