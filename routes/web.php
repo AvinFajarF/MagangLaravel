@@ -25,7 +25,7 @@ Route::get('/', function() {
 
 Auth::routes(['verify' => true]);
 
-Route::middleware('verified')->group(function(){
+Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
     // route home
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -45,17 +45,19 @@ Route::middleware('verified')->group(function(){
     Route::delete('/users/delete/{id}', [UserListController::class,'destroy'])->name('delete');
 
     // Route untuk menghapus dan menampilkan semua data user dengan yajrabox
-    Route::prefix('user')->group(function() {
+    Route::prefix('user')->middleware('rolecek')->group(function() {
         Route::controller(UserController::class)->group(function () {
             Route::get('/list',  'list')->name('user.list');
             Route::get('/',  'index')->name('user.index');
+            Route::get('/detail',  'detail')->name('user.detail');
             Route::delete('/delete/{user}', 'destroy')->name('destroy');
         });
     });
 
 
-
 });
+
+
 
 Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');

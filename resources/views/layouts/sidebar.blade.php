@@ -31,29 +31,23 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link {{ (Route::is('home') || Route::is('')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home
                         </p>
                     </a>
                 </li>
+                @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item ms-1">
-                    <a href="{{ route('users') }}" class="nav-link">
-                        <i class="bi  bi-people-fill"></i>
-                        <p class="ms-2">
-                              User
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item ms-1">
-                    <a href="{{ route('user.index') }}" class="nav-link">
+                    <a href="{{ route('user.index') }}" class="nav-link {{ Route::is('user.index') ? 'active' : '' }}">
                         <i class="bi  bi-people-fill"></i>
                         <p class="ms-2">
                               User list
                         </p>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

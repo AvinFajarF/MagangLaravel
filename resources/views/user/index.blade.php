@@ -25,10 +25,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>foto</th>
                                 <th>Nama</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Tanggal Lahir</th>
-                                <th width="10%">Aksi</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Delete</th>
+                                <th>Detail</th>
                             </tr>
                         </thead>
                     </table>
@@ -52,11 +54,13 @@
                 ajax: "{{ route('user.list') }}",
                 order: [],
                 columns: [
-                    { data: 'DT_RowIndex', sortable: true, searchable: false },
+                    { data: 'DT_RowIndex', searchable: false },
+                    { data: 'images', sortable: false,},
                     { data: 'name' },
-                    { data: 'jenis_kelamin' },
-                    { data: 'tanggal_lahir' },
+                    { data: 'email', sortable: false,},
+                    { data: 'is_blocked', sortable: false,},
                     { data: 'action', sortable: false,},
+                    { data: 'detail', sortable: false,},
                 ],
             });
         });
