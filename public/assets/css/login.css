@@ -1,6 +1,10 @@
 body {
     min-height: 100vh;
+}
 
+.navbar-brand{
+    font-weight: bold;
+    font-family: Hornbach;
 }
 
 .form-control:not(select) {
@@ -16,6 +20,7 @@ select.form-control {
     color: #ccc;
     font-weight: bold;
     font-size: 0.9rem;
+    font-family: Hornbach;
 }
 .form-control:focus {
     box-shadow: none;

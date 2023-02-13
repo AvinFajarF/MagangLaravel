@@ -29,7 +29,7 @@ class UserController extends Controller
             })
             ->addColumn('detail', function ($users) {
                 return '
-                <form action="' . route('user.detail') . '" method="GET">
+                <form action="' . route('user.detail', $users->id) . '" method="GET">
                 <input type="hidden" name="_token" value="' . @csrf_token() . '">
                 <button class="btn btn-sm btn-primary mr-2">
                 <i class="bi bi-info-circle"></i>
@@ -66,9 +66,10 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function detail()
+    public function detail(User $id)
     {
-        return view('home');
+        // dd("Hello World",$id);
+        return view('detail.index', ['users' => $id]);
     }
 
 }

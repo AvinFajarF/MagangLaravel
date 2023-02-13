@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "yajra/laravel-datatables-html": "^9.0",
         "yajra/laravel-datatables-oracle": "^10.0"
     },
     "require-dev": {

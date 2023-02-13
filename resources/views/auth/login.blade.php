@@ -90,22 +90,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{!! asset('assets/css/login.css') !!}">
     <title>Hello, world!</title>
+
+    <style>
+        $font-src: "../font/";
+
+@font-face {
+    font-family: 'Hornbach';
+    src: url('#{$font-src}/KaushanScript-Regular.otf') format('truetype');
+}
+
+
+
+
+    </style>
   </head>
   <body>
 
 
-
-        <header class="header">
-            <nav class="navbar navbar-expand-lg navbar-light py-3">
-                <div class="container">
-                    <!-- Navbar Brand -->
-                    <a href="#" class="navbar-brand">
-                        <h1 class="ms-4">Bootcamp</h1>
-
-                    </a>
-                </div>
-            </nav>
-        </header>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand">Navbar</a>
+          <a href="" class="d-flex btn btn-warning rounded-pill">Register</a>
+        </div>
+      </nav>
 
 
         <div class="container">

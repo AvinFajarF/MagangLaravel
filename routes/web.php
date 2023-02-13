@@ -34,22 +34,12 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
     // route untuk logout
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 
-    // Route untuk mengedit users
-    Route::controller(UpdateUserController::class)->group(function (){
-        Route::get('/users/update/{name}','index');
-        Route::put('/users/update/submit','updateUser');
-    });
-
-    // Route untuk menghapus user
-    Route::get('/users',[UserListController::class, 'index'])->name('users');
-    Route::delete('/users/delete/{id}', [UserListController::class,'destroy'])->name('delete');
-
     // Route untuk menghapus dan menampilkan semua data user dengan yajrabox
     Route::prefix('user')->middleware('rolecek')->group(function() {
         Route::controller(UserController::class)->group(function () {
             Route::get('/list',  'list')->name('user.list');
             Route::get('/',  'index')->name('user.index');
-            Route::get('/detail',  'detail')->name('user.detail');
+            Route::get('/detail/{id}',  'detail')->name('user.detail');
             Route::delete('/delete/{user}', 'destroy')->name('destroy');
         });
     });
