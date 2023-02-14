@@ -60,7 +60,7 @@ class UserController extends Controller
     public function detail(User $id)
     {
         // dd("Hello World",$id);
-        return view('update.updateusers', ['users' => $id]);
+        return view('user.update', ['users' => $id]);
     }
 
     public function update(Request $request, User $id)
@@ -105,7 +105,6 @@ class UserController extends Controller
                 'role' => $request->role,
                 'status' => $request->status,
             ];
-            dd($data);
            $find = User::findOrFail($id->id);
            $find->update($data);
 
