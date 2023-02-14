@@ -39,18 +39,16 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
         Route::controller(UserController::class)->group(function () {
             Route::get('/list',  'list')->name('user.list');
             Route::get('/',  'index')->name('user.index');
+            Route::put('/detail/{id}',  'update')->name('user.update');
             Route::get('/detail/{id}',  'detail')->name('user.detail');
             Route::delete('/delete/{user}', 'destroy')->name('destroy');
         });
     });
 
 
+    Route::prefix('my-profile')->group(function() {
+        Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');
+        Route::put('/', [MyProfileController::class, 'update'])->name('my.profile.update');
+    });
+
 });
-
-
-
-Route::prefix('my-profile')->middleware(['auth', 'verified'])->group(function() {
-    Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');
-    Route::put('/', [MyProfileController::class, 'update'])->name('my.profile.update');
-});
-

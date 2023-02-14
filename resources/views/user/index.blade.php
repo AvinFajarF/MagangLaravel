@@ -29,8 +29,7 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Delete</th>
-                                <th>Detail</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -54,13 +53,13 @@
                 ajax: "{{ route('user.list') }}",
                 order: [],
                 columns: [
-                    { data: 'DT_RowIndex', searchable: false },
+                    { data: 'DT_RowIndex', searchable: false, sortable: false, },
                     { data: 'images', sortable: false,},
                     { data: 'name' },
                     { data: 'email', sortable: false,},
-                    { data: 'is_blocked', sortable: false,},
+                    { data: 'status'},
                     { data: 'action', sortable: false,},
-                    { data: 'detail', sortable: false,},
+                    // { data: 'detail', sortable: false,},
                 ],
             });
         });

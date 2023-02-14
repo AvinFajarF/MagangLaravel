@@ -10,7 +10,8 @@ class MyProfileController extends Controller
 {
     public function index()
     {
-        return view('my-profile.index');
+        $users = Auth::user();
+        return view('my-profile.index', ['users' => $users]);
     }
 
     public function update(Request $request)
@@ -18,10 +19,10 @@ class MyProfileController extends Controller
         $request->validate(
             [
                 'name' => 'string',
-                'tanggal_lahir' => 'date',
-                'jenis_kelamin' => 'string',
-                'alamat' => 'string',
-                'images' => 'mimes:jpeg,jpg,png'
+                'tanggal_lahir' => 'date|nullable',
+                'jenis_kelamin' => 'string|nullable',
+                'alamat' => 'string|nullable',
+                'images' => 'mimes:jpeg,jpg,png|nullable'
             ],
             [
                 'name.string' => 'name harus string',

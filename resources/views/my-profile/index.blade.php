@@ -150,6 +150,7 @@
                                             >Silahkan Upload Foto Anda</small>
                                         </div>
                                     </div>
+                                    {{$users}}
                                     @error('images')
                                         <span
                                             class="invalid-feedback"

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_blocked')->default(false);
+            $table->enum('status', ['active','inactive'])->default('active')->after('images');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('status', function (Blueprint $table) {
             $table->dropIfExists('is_blocked');
         });
     }

@@ -17,7 +17,7 @@ class is_blocked
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->is_blocked != 0) {
+        if (Auth::user()->status != 'active') {
             Auth::logout();
             return redirect('/')->with('message','Maaf akun anda di banned');
         }

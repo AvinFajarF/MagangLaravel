@@ -1,156 +1,243 @@
-    <!doctype html>
-    <html lang="en">
+@extends('layouts.app')
 
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">{{ __('Edit Profile') }}</div>
+                    <div class="card-body">
+                        <form
+                            action="/user/detail/{{$users->id}}"
+                            method="POST"
+                            enctype="multipart/form-data"
+                        >
+                            @method('put')
+                            @csrf
+                            {{-- Name --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="name"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('Name') }}</label>
 
-        <!-- Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="{!! asset('assets/css/update.css') !!}">
-        <title>Detail Users</title>
-    </head>
-
-    <body>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-
-
-        <!-- START FORM -->
-        <div class="card">
-            <div class="update">
-                <div class="continer">
-                    <form action='/users/update/submit' method='POST' enctype="multipart/form-data">
-                        @method('PUT')
-                        @csrf
-
-                        {{-- name --}}
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ Session::get('username')}}"  autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="tanggal_lahir"
-                                class="col-md-4 col-form-label text-md-end">{{ __('tanggal_lahir') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="tanggal_lahir" value="{{ Session::get('tanggal_lahir')}}" type="date"
-                                    class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir"
+                                <div class="col-md-6">
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        name="name"
+                                        value="{{$users->name }}"
                                     >
 
-                                @error('tanggal_lahir')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    @error('name')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                            {{-- Tanggal Lahir --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="tanggal_lahir"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('Tanggal Lahir') }}</label>
 
-                        {{-- Jenis Kelamin --}}
-                        <div class="row mb-3">
-                            <label for="jenis_kelamin"
-                                class="col-md-4 col-form-label text-md-end">{{ __('jenis_kelamin') }}</label>
+                                <div class="col-md-6">
+                                    <input
+                                        id="tanggal_lahir"
+                                        type="date"
+                                        class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                        name="tanggal_lahir"
+                                        value="{{ $users->tanggal_lahir }}"
+                                    >
 
-                            <div class="col-md-6">
+                                    @error('tanggal_lahir')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- Jenis Kelamin --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="jenis_kelamin"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('Jenis Kelamin') }}</label>
 
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">jenis kelamin</label>
-                                    <select class="form-select" value="{{ Session::get('jenis_kelamin')}}" name="jenis_kelamin" id="inputGroupSelect01">
-                                        <option selected hidden> {{Session::get('jenis_kelamin')}} </option>
-                                        <option value="laki-laki">laki-laki</option>
-                                        <option value="wanita">wanita</option>
+                                <div class="col-md-6">
+                                    <select
+                                        class="form-control @error('jenis_kelamin') is-invalid @enderror"
+                                        aria-label="Default select example"
+                                        name="jenis_kelamin"
+                                    >
+                                        <option
+                                            {{$users->jenis_kelamin === "Laki-Laki" ? 'selected' : '' }}
+                                            value="Laki-Laki"
+                                        >Laki-Laki</option>
+                                        <option
+                                            {{ $users->jenis_kelamin === "wanita" ? 'selected' : '' }}
+                                            value="wanita"
+                                        >wanita</option>
                                     </select>
+
+                                    @error('gender')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-
-                                @error('jenis_kelamin')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
-                        </div>
+                            {{-- Alamat --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="alamat"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('Alamat') }}</label>
 
+                                <div class="col-md-6">
+                                    <textarea
+                                        id="alamat"
+                                        type="text"
+                                        class="form-control @error('alamat') is-invalid @enderror"
+                                        name="alamat"
+                                    >{{ $users->alamat }}</textarea>
 
-                        {{-- images --}}
-                        <div class="row mb-3">
-                            <label for="images"
-                                class="col-md-4 col-form-label text-md-end">{{ __('images') }}</label>
+                                    @error('alamat')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- Role --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="role"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('role') }}</label>
 
-                            <div class="col-md-6">
+                                <div class="col-md-6">
+                                    <input
+                                        id="role"
+                                        type="text"
+                                        class="form-control @error('role') is-invalid @enderror"
+                                        name="role"
+                                        value="{{$users->role }}"
+                                    >
 
-                                <div class="input-group mb-3">
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Silahkan upload foto anda </label>
-                                        <input name="images" class="form-control" type="file" id="formFile">
+                                    @error('role')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- status --}}
+
+                            <div class="row mb-3">
+                                <label
+                                    for="status"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('status') }}</label>
+
+                                <div class="col-md-6">
+                                    <select
+                                    class="form-control @error('status') is-invalid @enderror"
+                                    aria-label="Default select example"
+                                    name="status"
+                                >
+                                    <option
+                                        {{$users->status === "active" ? 'selected' : '' }}
+                                        value="active"
+                                    >active</option>
+                                    <option
+                                        {{ $users->status === "inactive" ? 'selected' : '' }}
+                                        value="inactive"
+                                    >inactive</option>
+                                </select>
+
+                                    @error('status')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- images --}}
+                            <div class="row mb-3">
+                                <label
+                                    for="images"
+                                    class="col-md-4 col-form-label text-md-end"
+                                >{{ __('Foto') }}</label>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <div>
+                                            @if ($users->images)
+                                                <img src="{{ Storage::url($users->images) }}" class="img-fluid mb-3 rounded">
+                                            @endif
+                                            <input
+                                                name="images"
+                                                class="form-control @error('images') is-invalid @enderror"
+                                                value="{{ $users->images }}"
+                                                type="file"
+                                                accept="image/*"
+                                                id="formFile"
+                                            >
+                                            <small
+                                                for="formFile"
+                                                class="form-label"
+                                            >Silahkan Upload Foto Anda</small>
+                                        </div>
                                     </div>
+                                    @error('images')
+                                        <span
+                                            class="invalid-feedback"
+                                            role="alert"
+                                        >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-
-                                @error('images')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
-                        </div>
-
-
-                        {{-- alamat --}}
-                        <div class="row mb-3">
-                            <label for="alamat" class="col-md-4 col-form-label text-md-end">{{ __('alamat') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="alamat" value="{{ Session::get('alamat')}}" type="alamat"
-                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat" required>
-
-                                @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            {{-- Save --}}
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-dark"
+                                    >
+                                        {{ __('Save') }}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-
-
-                        <div class="mb-3 row">
-                            <label for="jurusan" class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10">
-                                <button type="submit" id="tombol" class="btn btn-primary">submit</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+@endsection
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
-    </body>
-
-    </html>

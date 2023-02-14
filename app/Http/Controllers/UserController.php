@@ -12,7 +12,7 @@ class UserController extends Controller
     public function list()
     {
         return datatables()
-            ->eloquent(User::query()->latest())
+            ->eloquent(User::query()->where('role','!=','superadmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
                     <form action="' . route('destroy', $user->id) . '" method="POST" class="delete-form">
@@ -21,21 +21,12 @@ class UserController extends Controller
                     <button onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">
                     <i class="fa fa-trash"></i>
                     </button>
+                    <a href="' . route('user.update', $user->id) . '" class="btn btn-primary"><i class="bi bi-info-circle"></i></a>
                 </form>
                 ';
             })
-            ->addColumn('is_blocked', function($user) {
-                return $user->is_blocked != 1 ? 'active' : 'inactive';
-            })
-            ->addColumn('detail', function ($users) {
-                return '
-                <form action="' . route('user.detail', $users->id) . '" method="GET">
-                <input type="hidden" name="_token" value="' . @csrf_token() . '">
-                <button class="btn btn-sm btn-primary mr-2">
-                <i class="bi bi-info-circle"></i>
-                </button>
-                </form>
-                ';
+            ->addColumn('status', function($user) {
+                return $user->status;
             })
             ->addColumn('images', function ($user) {
                 return  $user->images ?
@@ -45,7 +36,7 @@ class UserController extends Controller
             })
             ->addIndexColumn()
             ->setRowClass(function ($user) {
-                return $user->is_blocked == 0 ? '' : 'alert-danger';
+                return $user->status == 'active' ? '' : 'alert-danger';
             })
             ->escapeColumns(['action'])
             ->toJson();
@@ -69,7 +60,56 @@ class UserController extends Controller
     public function detail(User $id)
     {
         // dd("Hello World",$id);
-        return view('detail.index', ['users' => $id]);
+        return view('update.updateusers', ['users' => $id]);
+    }
+
+    public function update(Request $request, User $id)
+    {
+        // dd($id);
+        $request->validate(
+            [
+                'name' => 'string',
+                'tanggal_lahir' => 'date|nullable',
+                'jenis_kelamin' => 'string|nullable',
+                'alamat' => 'string|nullable',
+                'images' => 'mimes:jpeg,jpg,png|nullable'
+            ],
+            [
+                'name.string' => 'name harus string',
+                'tanggal_lahir.date' => 'harus berformat X-X-XXXX',
+                'jenis_kelamin.string' => 'jenis kelamin harus string',
+                'alamat.string' => 'alamat harus string',
+                'images.mimes' => 'Foto harus berextension jpeg,jpg,png',
+            ]
+        );
+
+
+        // Request image
+
+        $newImagesName = '' ;
+
+        if ($request->file('images')) {
+            $extension = $request->file('images')->getClientOriginalExtension();
+            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+
+            $request->file('images')->storeAs('images', $newImagesName);
+        }
+
+        $data =
+            [
+                'images' => $newImagesName,
+                'name' => $request->name,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat,
+                'role' => $request->role,
+                'status' => $request->status,
+            ];
+            dd($data);
+           $find = User::findOrFail($id->id);
+           $find->update($data);
+
+          return redirect('/user');
     }
 
 }
