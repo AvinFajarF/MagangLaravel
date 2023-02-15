@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function list()
     {
         return datatables()
-            ->eloquent(User::query()->where('role','!=','superadmin')->latest())
+            ->eloquent(User::query()->where('role', '!=', 'superadmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
                     <form action="' . route('destroy', $user->id) . '" method="POST" class="delete-form">
@@ -82,33 +83,32 @@ class UserController extends Controller
 
         // Request image
 
-        $newImagesName = '' ;
+        $newImagesName = '';
 
 
         $data =
-        [
-            'name' => $request->name,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'status' => $request->status,
-        ];
-            if ($request->file('images')) {
-                $extension = $request->file('images')->getClientOriginalExtension();
-                $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+            [
+                'name' => $request->name,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat,
+                'status' => $request->status,
+            ];
+        if ($request->file('images')) {
+            $extension = $request->file('images')->getClientOriginalExtension();
+            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
 
-                $request->file('images')->storeAs('images', $newImagesName);
-                $data = [
-                    'images' => $newImagesName
-                ];
-            }
+            $request->file('images')->storeAs('images', $newImagesName);
+            $data = [
+                'images' => $newImagesName
+            ];
+        }
 
 
 
-           $find = User::findOrFail($id->id);
-           $find->update($data);
+        $find = User::findOrFail($id->id);
+        $find->update($data);
 
-          return redirect('/user');
+        return redirect('/user');
     }
-
 }

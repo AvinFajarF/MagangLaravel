@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DetailUsersController;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UpdateUserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserListController;
@@ -39,11 +40,33 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
         Route::controller(UserController::class)->group(function () {
             Route::get('/list',  'list')->name('user.list');
             Route::get('/',  'index')->name('user.index');
+
+            // Route untuk update dan melihat detail user
             Route::put('/detail/{id}',  'update')->name('user.update');
             Route::get('/detail/{id}',  'detail')->name('user.detail');
+
+            // Route untuk delete user
             Route::delete('/delete/{user}', 'destroy')->name('destroy');
         });
     });
+
+    // Route untuk tag
+    Route::prefix('tag')->group(function (){
+        Route::controller(TagController::class)->group(function () {
+            // Route untuk return view
+            Route::get('/','index')->name('tag.TagView');
+            // Route view list
+            Route::get('/list','listTag')->name('tag.listTag');
+            // Route untuk menyimpan tag
+            Route::get('/view','viewTagCreate')->name('tag.TagCreate');
+            Route::post('/','StoreTag')->name('tag.StoreTag');
+            // Route untuk menghapus tag
+            Route::delete('/destroy/{id}','destroy')->name('tag.StoreTag');
+            // Route untuk mengedit tag dan view edit tag
+            Route::get('/edit/{id}','viewTagEdit')->name('tag.viewTagEdit');
+            Route::put('/edit/{id}','update')->name('tag.EditTag');
+        });
+    })->name('tag');
 
 
     Route::prefix('my-profile')->group(function() {

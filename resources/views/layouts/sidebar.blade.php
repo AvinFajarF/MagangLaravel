@@ -38,6 +38,26 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex justify-content-between {{ Request::is('tag*') ? 'active' : '' }}" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <p><i class="nav-icon fa fa-tags"></i> Tags</p>
+                      <i class="dropdown-toggle"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a href="{{route('tag.TagView')}}" class="nav-link {{Route::is('tag.TagView') ? 'active' : ''}}">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>List</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{route('tag.TagCreate')}}" class="nav-link {{Route::is('tag.TagCreate') ? 'active' : ''}}">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Create</p>
+                            </a>
+                          </li>
+                    </ul>
+                  </li>
                 @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item ms-1">
                     <a href="{{ route('user.index') }}" class="nav-link {{ (Route::is('user.index') || Route::is('user.detail')) ? 'active' : '' }}">
@@ -48,7 +68,9 @@
                     </a>
                 </li>
                 @endif
-            </ul>
+                    </ul>
+                </li>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>

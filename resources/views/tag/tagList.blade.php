@@ -17,17 +17,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col table-responsive">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>foto</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -49,7 +47,7 @@
                  responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('user.list') }}",
+                ajax: "{{ route('tag.listTag') }}",
                 order: [],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -57,23 +55,17 @@
                         sortable: false,
                     },
                     {
-                        data: 'images',
+                        data: 'name',
                         sortable: false,
                     },
                     {
-                        data: 'name'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'status'
+                        data: 'created_by',
+                        sortable: false,
                     },
                     {
                         data: 'action',
                         sortable: false,
                     },
-                    // { data: 'detail', sortable: false,},
                 ],
             });
         });
