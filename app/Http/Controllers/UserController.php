@@ -99,9 +99,7 @@ class UserController extends Controller
             $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
 
             $request->file('images')->storeAs('images', $newImagesName);
-            $data = [
-                'images' => $newImagesName
-            ];
+            $data['images'] = $newImagesName;
         }
 
 

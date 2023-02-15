@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link">
-        <img src="{{ asset('vendor/admin-lte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="{{ asset('vendor/admin-lte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Dashboard admin</span>
     </a>
 
@@ -12,9 +12,11 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @if (Auth::user()->images)
-                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2"
+                        alt="User Image">
                 @else
-                    <img id="images-default" src="{{ asset('images/person-default-23122312.gif') }}" class="img-circle " alt="User Image">
+                    <img id="images-default" src="{{ asset('images/person-default-23122312.gif') }}" class="img-circle "
+                        alt="User Image">
                 @endif
             </div>
 
@@ -27,11 +29,13 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link {{ (Route::is('home') || Route::is('')) ? 'active' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route('home') }}"
+                        class="nav-link {{ Route::is('home') || Route::is('') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home
@@ -39,37 +43,42 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link d-flex  justify-content-between {{ Request::is('tag*') ? 'active' : '' }}" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <p><i class="nav-icon fa fa-tags"></i> Tags</p>
-                      <i class="dropdown-toggle"></i>
+                    <a class="nav-link d-flex  justify-content-between {{ Request::is('tag') ? 'active' : '' }}"
+                        href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <p><i class="nav-icon fa fa-tags"></i> Tags</p>
+                        <i class="dropdown-toggle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li class="nav-item">
-                            <a href="{{route('tag.TagView')}}" class="nav-link {{Route::is('tag.TagView') ? 'active' : ''}}">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>List</p>
+                            <a href="{{ route('tag.TagView') }}"
+                                class="nav-link {{ Route::is('tag.listTag') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List</p>
                             </a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="{{route('tag.TagCreate')}}" class="nav-link {{Route::is('tag.TagCreate') ? 'active' : ''}}">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Create</p>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tag.TagCreate') }}"
+                                class="nav-link {{ Route::is('tag.listTag') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create</p>
                             </a>
-                          </li>
+                        </li>
                     </ul>
-                  </li>
+                </li>
                 @if (Auth::user()->role == 'superadmin')
-                <li class="nav-item ms-1">
-                    <a href="{{ route('user.index') }}" class="nav-link {{ (Route::is('user.index') || Route::is('user.detail')) ? 'active' : '' }}">
-                        <i class="bi  bi-people-fill"></i>
-                        <p class="ms-2">
-                              User
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item ms-1">
+                        <a href="{{ route('user.index') }}"
+                            class="nav-link {{ Route::is('user.index') || Route::is('user.detail') ? 'active' : '' }}">
+                            <i class="bi  bi-people-fill"></i>
+                            <p class="ms-2">
+                                User
+                            </p>
+                        </a>
+                    </li>
                 @endif
-                    </ul>
-                </li>
+            </ul>
+            </li>
 
         </nav>
         <!-- /.sidebar-menu -->

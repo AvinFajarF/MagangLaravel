@@ -101,6 +101,6 @@ class TagsController extends Controller
 
         $tagsFind->update($data);
 
-        return redirect('/tag')->with('success', 'Tag berhasil di update');
+        return redirect('/tag')->with('success', 'Tag dengan nama '. $tagsFind->name . ' berhasil di update');
     }
 }
