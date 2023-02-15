@@ -132,7 +132,7 @@
                                 >{{ __('role') }}</label>
 
                                 <div class="col-md-6">
-                                    <input
+                                    <input disabled
                                         id="role"
                                         type="text"
                                         class="form-control @error('role') is-invalid @enderror"

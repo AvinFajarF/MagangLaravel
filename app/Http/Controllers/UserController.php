@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -21,12 +22,9 @@ class UserController extends Controller
                     <button onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">
                     <i class="fa fa-trash"></i>
                     </button>
-                    <a href="' . route('user.update', $user->id) . '" class="btn btn-primary"><i class="bi bi-info-circle"></i></a>
+                    <a href="' . route('user.update', $user->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-info-circle"></i></a>
                 </form>
                 ';
-            })
-            ->addColumn('status', function($user) {
-                return $user->status;
             })
             ->addColumn('images', function ($user) {
                 return  $user->images ?
@@ -59,13 +57,11 @@ class UserController extends Controller
 
     public function detail(User $id)
     {
-        // dd("Hello World",$id);
         return view('user.update', ['users' => $id]);
     }
 
     public function update(Request $request, User $id)
     {
-        // dd($id);
         $request->validate(
             [
                 'name' => 'string',
@@ -88,23 +84,27 @@ class UserController extends Controller
 
         $newImagesName = '' ;
 
-        if ($request->file('images')) {
-            $extension = $request->file('images')->getClientOriginalExtension();
-            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
-
-            $request->file('images')->storeAs('images', $newImagesName);
-        }
 
         $data =
-            [
-                'images' => $newImagesName,
-                'name' => $request->name,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'jenis_kelamin' => $request->jenis_kelamin,
-                'alamat' => $request->alamat,
-                'role' => $request->role,
-                'status' => $request->status,
-            ];
+        [
+            'name' => $request->name,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'status' => $request->status,
+        ];
+            if ($request->file('images')) {
+                $extension = $request->file('images')->getClientOriginalExtension();
+                $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+
+                $request->file('images')->storeAs('images', $newImagesName);
+                $data = [
+                    'images' => $newImagesName
+                ];
+            }
+
+
+
            $find = User::findOrFail($id->id);
            $find->update($data);
 

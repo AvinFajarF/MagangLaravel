@@ -40,7 +40,7 @@
                 </li>
                 @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item ms-1">
-                    <a href="{{ route('user.index') }}" class="nav-link {{ Route::is('user.index') ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class="nav-link {{ (Route::is('user.index') || Route::is('user.detail')) ? 'active' : '' }}">
                         <i class="bi  bi-people-fill"></i>
                         <p class="ms-2">
                               User

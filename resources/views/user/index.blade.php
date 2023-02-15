@@ -56,7 +56,7 @@
                     { data: 'DT_RowIndex', searchable: false, sortable: false, },
                     { data: 'images', sortable: false,},
                     { data: 'name' },
-                    { data: 'email', sortable: false,},
+                    { data: 'email'},
                     { data: 'status'},
                     { data: 'action', sortable: false,},
                     // { data: 'detail', sortable: false,},
