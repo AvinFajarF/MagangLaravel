@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
-use App\Models\Tags;
 use Illuminate\Http\Request;
+use App\Models\Tags;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class TagController extends Controller
+
+class TagsController extends Controller
 {
+
     public function index()
     {
-        return view('tag.tagList');
+        return view('tag.list');
     }
 
     public function viewTagCreate()
     {
-        return view('tag.createTag');
+        return view('tag.create');
     }
 
     public function viewTagEdit($id)
@@ -76,7 +77,6 @@ class TagController extends Controller
 
     public function destroy(Tags $id)
     {
-        // dd($tag);
         $tagDelete = $id->delete();
         if ($tagDelete) {
             Session::flash('success', 'Berhasil menghapus data');
@@ -103,5 +103,4 @@ class TagController extends Controller
 
         return redirect('/tag')->with('success', 'Tag berhasil di update');
     }
-
 }

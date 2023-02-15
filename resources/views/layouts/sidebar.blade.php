@@ -39,11 +39,11 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link d-flex justify-content-between {{ Request::is('tag*') ? 'active' : '' }}" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link d-flex  justify-content-between {{ Request::is('tag*') ? 'active' : '' }}" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <p><i class="nav-icon fa fa-tags"></i> Tags</p>
                       <i class="dropdown-toggle"></i>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-dark">
                         <li class="nav-item">
                             <a href="{{route('tag.TagView')}}" class="nav-link {{Route::is('tag.TagView') ? 'active' : ''}}">
                               <i class="far fa-circle nav-icon"></i>

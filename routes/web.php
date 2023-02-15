@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\DetailUsersController;
 use App\Http\Controllers\MyProfileController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\UpdateUserController;
+use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +50,7 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
 
     // Route untuk tag
     Route::prefix('tag')->group(function (){
-        Route::controller(TagController::class)->group(function () {
+        Route::controller(TagsController::class)->group(function () {
             // Route untuk return view
             Route::get('/','index')->name('tag.TagView');
             // Route view list
