@@ -8,7 +8,7 @@
                 <div class="card-header text-bold">{{ __('Create Category') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('tag.StoreTag') }}">
+                    <form method="POST" action="{{ route('categories.Storecategories') }}">
                         @csrf
                         <div class="row mb-3">
                             <label for="category" class="col-md-2 col-form-label text-center">{{ __('Category Name') }}</label>

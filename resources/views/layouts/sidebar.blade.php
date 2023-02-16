@@ -42,30 +42,57 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link d-flex  justify-content-between {{ Request::is('tag') ? 'active' : '' }}"
-                        href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <p><i class="nav-icon fa fa-tags"></i> Tags</p>
-                        <i class="dropdown-toggle"></i>
+
+                {{-- Tag --}}
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link {{ Request::is('tag*') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Tags
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li class="nav-item">
-                            <a href="{{ route('tag.TagView') }}"
-                                class="nav-link {{ Route::is('tag.listTag') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('tag.TagCreate') }}"
-                                class="nav-link {{ Route::is('tag.listTag') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Create</p>
-                            </a>
-                        </li>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ route('tag.TagView') }}" class="nav-link {{ Request::is('tag.TagView') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>List</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ route('tag.TagCreate') }}" class="nav-link {{ Route::is('tag.TagCreate') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Create</p>
+                        </a>
+                      </li>
                     </ul>
-                </li>
+                  </li>
+                  {{-- Category --}}
+                  <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Category
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{{ route('categories.categoriesView') }}" class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>List</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ route('categories.categoriesCreate') }}" class="nav-link {{ Route::is('categories.categoriesCreate') ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Create</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  {{-- UserList --}}
                 @if (Auth::user()->role == 'superadmin')
                     <li class="nav-item ms-1">
                         <a href="{{ route('user.index') }}"

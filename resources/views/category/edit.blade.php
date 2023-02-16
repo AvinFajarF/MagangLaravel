@@ -5,19 +5,19 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header text-bold">{{ __('Update tags') }}</div>
+                    <div class="card-header text-bold">{{ __('Update Category') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('tag.EditTag',$tags->id) }}">
+                        <form method="POST" action="{{ route('categories.Editcategories',$category->id) }}">
                             @csrf
                             @method('put')
                             <div class="row mb-3">
-                                <label for="tags" class="col-md-2 col-form-label">{{ __('tags Name') }}</label>
+                                <label for="category" class="col-md-2 col-form-label text-center">{{ __('Category Name') }}</label>
 
                                 <div class="col-md-12">
-                                    <input id="tags" type="text" class="form-control @error('tags') is-invalid @enderror" name="name" value="{{ $tags->name }}" autocomplete="tags">
+                                    <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="name" value="{{ $category->name }}" autocomplete="category">
 
-                                    @error('tags')
+                                    @error('category')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

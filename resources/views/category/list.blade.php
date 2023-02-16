@@ -40,14 +40,14 @@
 
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vstestersaasendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('table').DataTable({
                  responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('tag.listTag') }}",
+                ajax: "{{ route('categories.categoriesList') }}",
                 order: [],
                 columns: [{
                         data: 'DT_RowIndex',

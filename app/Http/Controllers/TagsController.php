@@ -41,7 +41,7 @@ class TagsController extends Controller
 
         $data =
             [
-                'name' => $request->tags,
+                'name' => $request->name,
                 'created_by' => Auth::user()->name,
             ];
 

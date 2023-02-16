@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DetailUsersController;
 use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\TagsController;
@@ -59,12 +60,31 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
             Route::get('/view','viewTagCreate')->name('tag.TagCreate');
             Route::post('/','StoreTag')->name('tag.StoreTag');
             // Route untuk menghapus tag
-            Route::delete('/destroy/{id}','destroy')->name('tag.StoreTag');
+            Route::delete('/destroy/{id}','destroy')->name('tag.destroyTag');
             // Route untuk mengedit tag dan view edit tag
             Route::get('/edit/{id}','viewTagEdit')->name('tag.viewTagEdit');
             Route::put('/edit/{id}','update')->name('tag.EditTag');
         });
     })->name('tag');
+
+    // Route untuk category
+
+    Route::prefix('categories')->group(function (){
+        Route::controller(CategoriesController::class)->group(function () {
+            // Route untuk return view
+            Route::get('/','index')->name('categories.categoriesView');
+            // Route view list
+            Route::get('/list','listCategories')->name('categories.categoriesList');
+            // Route untuk menyimpan categories
+            Route::get('/view','viewcategoriesCreate')->name('categories.categoriesCreate');
+            Route::post('/','StoreCategories')->name('categories.Storecategories');
+            // Route untuk menghapus categories
+            Route::delete('/destroy/{id}','destroy')->name('categories.destroycategories');
+            // Route untuk mengedit categories dan view edit categories
+            Route::get('/edit/{id}','viewcategoriesEdit')->name('categories.viewcategoriesEdit');
+            Route::put('/edit/{id}','update')->name('categories.Editcategories');
+        });
+    })->name('categories');
 
 
     Route::prefix('my-profile')->group(function() {
