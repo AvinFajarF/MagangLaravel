@@ -17,17 +17,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col table-responsive">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>foto</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,13 +42,12 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
-        let userDataTable;
         $(document).ready(function() {
-            userDataTable = $('table').DataTable({
-                responsive: true,
+            $('table').DataTable({
+                 responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('user.list') }}",
+                ajax: "{{ route('tag.listTag') }}",
                 order: [],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -58,27 +55,19 @@
                         sortable: false,
                     },
                     {
-                        data: 'images',
-                        sortable: false,
+                        data: 'name',
+                        sortable: true,
                     },
                     {
-                        data: 'name'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'status'
+                        data: 'created_by',
+                        sortable: true,
                     },
                     {
                         data: 'action',
                         sortable: false,
                     },
-                    // { data: 'detail', sortable: false,},
                 ],
             });
         });
     </script>
-
-    <script src="{!! asset('assets/js/user/delete.js') !!}"></script>
 @endpush

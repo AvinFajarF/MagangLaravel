@@ -51,10 +51,12 @@ class TagsController extends Controller
         return redirect('/tag')->with('success', 'Berhasil membuat tag');
     }
 
-    public function listTag()
+    public function listTag(Request $request)
     {
         return datatables()
-            ->eloquent(Tags::query()->latest())
+            ->eloquent(Tags::query()->when(!$request->order, function ($query) {
+                $query->latest();
+            }))
             ->addColumn('action', function ($tag) {
                 return '
                     <form action="' . route('tag.StoreTag', $tag->id) . '" method="POST" class="delete-form">

@@ -17,7 +17,7 @@ class UserController extends Controller
             ->eloquent(User::query()->where('role', '!=', 'superadmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
-                    <form action="' . route('destroy', $user->id) . '" method="POST" class="delete-form">
+                    <form onsubmit="destroy(event)" action="' . route('destroy', $user->id) . '" method="POST" class="delete-form">
                     <input type="hidden" name="_token" value="' . @csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
                     <button onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">

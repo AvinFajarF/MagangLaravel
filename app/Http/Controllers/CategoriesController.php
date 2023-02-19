@@ -49,10 +49,12 @@ class CategoriesController extends Controller
 
     }
 
-    public function listCategories()
+    public function listCategories(Request $request)
     {
         return datatables()
-            ->eloquent(Categories::query()->latest())
+            ->eloquent(Categories::query()->when(!$request->order, function ($query) {
+                $query->latest();
+            }))
             ->addColumn('action', function ($categories) {
                 return '
                     <form action="' . route('categories.destroycategories', $categories->id) . '" method="POST" class="delete-form">
