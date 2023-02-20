@@ -60,14 +60,15 @@ class TagsController extends Controller
             }))
             ->addColumn('action', function ($tag) {
                 return '
-                    <form onsubmit="destroy(event)" action="' . route('tag.StoreTag', $tag->id) . '" method="POST" class="delete-form">
-                    <input type="hidden" name="_token" value="' . @csrf_token() . '">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn btn-sm btn-danger mr-2">
-                    <i class="fa fa-trash"></i>
-                    </button>
-                    <a href="' . route('tag.viewTagEdit', $tag->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-pen"></i></a>
-                </form>
+
+                <form onsubmit="destroy(event)" action="' . route('tag.destroyTag', $tag->id) . '" method="POST">
+                <input type="hidden" name="_token" value="' . @csrf_token() . '">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-sm btn-danger mr-2">
+                <i class="fa fa-trash"></i>
+                </button>
+                <a href="' . route('tag.viewTagEdit', $tag->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-info-circle"></i></a>
+            </form>
                 ';
             })
 

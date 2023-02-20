@@ -78,6 +78,6 @@
             });
         });
     </script>
-<script src="{{ asset('js/user/delete.js') }}"></script>
+<script src="{{ asset('assets/js/user/delete.js') }}"></script>
 
 @endpush
