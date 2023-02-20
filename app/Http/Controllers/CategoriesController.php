@@ -61,10 +61,10 @@ class CategoriesController extends Controller
             }))
             ->addColumn('action', function ($categories) {
                 return '
-                    <form action="' . route('categories.destroycategories', $categories->id) . '" method="POST" class="delete-form">
+                    <form onsubmit="destroy(event)" action="' . route('categories.destroycategories', $categories->id) . '" method="POST" class="delete-form">
                     <input type="hidden" name="_token" value="' . @csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">
+                    <button class="btn btn-sm btn-danger mr-2">
                     <i class="fa fa-trash"></i>
                     </button>
                     <a href="' . route('categories.viewcategoriesEdit', $categories->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-pen"></i></a>

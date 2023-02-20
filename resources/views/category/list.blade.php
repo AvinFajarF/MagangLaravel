@@ -36,6 +36,9 @@
             </div>
         </div>
     </div>
+
+    @include('include.modal-delete')
+
 @endsection
 
 
@@ -43,8 +46,9 @@
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vstestersaasendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
+        let userDatatable;
         $(document).ready(function() {
-            $('table').DataTable({
+            userDatatable =  $('table').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
@@ -74,4 +78,6 @@
             });
         });
     </script>
+<script src="{{ asset('js/user/delete.js') }}"></script>
+
 @endpush

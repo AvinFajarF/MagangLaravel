@@ -89,10 +89,10 @@ class PostController extends Controller
             }))
             ->addColumn('action', function ($posts) {
                 return '
-                        <form action="' . route('posts.destroy', $posts->id) . '" method="POST" class="delete-form">
+                        <form onsubmit="destroy(event)" action="' . route('posts.destroy', $posts->id) . '" method="POST" class="delete-form">
                         <input type="hidden" name="_token" value="' . @csrf_token() . '">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">
+                        <button type="submit" class="btn btn-sm btn-danger mr-2">
                         <i class="fa fa-trash"></i>
                          </button>
                         <a href="' . route('posts.edit', $posts->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-pen"></i></a>
