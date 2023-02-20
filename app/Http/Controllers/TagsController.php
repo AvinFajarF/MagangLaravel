@@ -42,11 +42,12 @@ class TagsController extends Controller
         $data =
             [
                 'name' => $request->name,
+                'description' => $request->description,
                 'created_by' => Auth::user()->name,
             ];
 
 
-            Tags::create($data);
+        Tags::create($data);
 
         return redirect('/tag')->with('success', 'Berhasil membuat tag');
     }
@@ -69,6 +70,7 @@ class TagsController extends Controller
                 </form>
                 ';
             })
+         
             ->addColumn('created_by', function ($user) {
                 return $user->created_by;
             })
@@ -97,12 +99,13 @@ class TagsController extends Controller
 
         $data = [
             'name' => $request->name,
+            'description' => $request->description,
         ];
 
         $tagsFind = Tags::find($id->id);
 
         $tagsFind->update($data);
 
-        return redirect('/tag')->with('success', 'Tag dengan nama '. $tagsFind->name . ' berhasil di update');
+        return redirect('/tag')->with('success', 'Tag dengan nama ' . $tagsFind->name . ' berhasil di update');
     }
 }

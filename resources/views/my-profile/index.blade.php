@@ -125,24 +125,34 @@
                                 </div>
                             </div>
                             {{-- images --}}
+
+                            {{-- <div class="mt-3">
+                                <img class="outimgd" style="margin-left: 350px" width="200" src="{{ asset('storage/images/' . $users->images) }}" id="output">
+                            </div> --}}
+
+
                             <div class="row mb-3">
                                 <label
                                     for="images"
                                     class="col-md-4 col-form-label text-md-end"
                                 >{{ __('Foto') }}</label>
                                 <div class="col-md-6">
+                                    @if (Auth::user()->images)
+                                        <img src="{{ asset('storage/images/' . $users->images) }}" class="img-fluid mb-3 rounded">
+                                        @else
+                                        <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation
+                                    @endif
                                     <div class="input-group mb-3">
                                         <div>
-                                            @if (auth()->user()->photo)
-                                                <img src="{{ Storage::url(auth()->user()->photo) }}" class="img-fluid mb-3 rounded">
-                                            @endif
                                             <input
                                                 name="images"
                                                 class="form-control @error('images') is-invalid @enderror"
-                                                value="{{ old('images', auth()->user()->images) }}"
+                                                value="{{ old('images', $users->images) }}"
                                                 type="file"
                                                 accept="image/*"
                                                 id="formFile"
+                                                {{-- onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" --}}
+
                                             >
                                             <small
                                                 for="formFile"

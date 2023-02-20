@@ -24,7 +24,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Content</th>
                                     <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
@@ -47,7 +48,7 @@
                  responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('tag.listTag') }}",
+                ajax: "{{ route('posts.list') }}",
                 order: [],
                 columns: [{
                         data: 'DT_RowIndex',
@@ -55,7 +56,11 @@
                         sortable: false,
                     },
                     {
-                        data: 'name',
+                        data: 'title',
+                        sortable: true,
+                    },
+                    {
+                        data: 'content',
                         sortable: true,
                     },
                     {

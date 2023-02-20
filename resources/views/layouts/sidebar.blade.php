@@ -44,55 +44,86 @@
                 </li>
 
                 {{-- Tag --}}
-                <li class="nav-item has-treeview menu-open">
+                <li class="nav-item has-treeview {{ Request::is('tag*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('tag*') ? 'active' : '' }}">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
-                      <p>
-                        Tags
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
+                        <i class="bi bi-tags"></i>
+                        <p>
+                            Tags
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
                     <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="{{ route('tag.TagView') }}" class="nav-link {{ Request::is('tag.TagView') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>List</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('tag.TagCreate') }}" class="nav-link {{ Route::is('tag.TagCreate') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Create</p>
-                        </a>
-                      </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tag.TagView') }}"
+                                class="nav-link {{ Request::is('tag.TagView') ? 'active' : '' }}">
+                                <i class="bi bi-list"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tag.TagCreate') }}"
+                                class="nav-link {{ Route::is('tag.TagCreate') ? 'active' : '' }}">
+                                <i class="bi bi-plus"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
                     </ul>
-                  </li>
-                  {{-- Category --}}
-                  <li class="nav-item has-treeview menu-open">
+                </li>
+                {{-- Category --}}
+                <li class="nav-item has-treeview {{ Request::is('categories*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
-                      <p>
-                        Category
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
+                        <i class="bi bi-bookmarks-fill"></i>
+                        <p>
+                            Category
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
                     <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="{{ route('categories.categoriesView') }}" class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>List</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('categories.categoriesCreate') }}" class="nav-link {{ Route::is('categories.categoriesCreate') ? 'active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Create</p>
-                        </a>
-                      </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.categoriesView') }}"
+                                class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
+                                <i class="bi bi-list"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.categoriesCreate') }}"
+                                class="nav-link {{ Route::is('categories.categoriesCreate') ? 'active' : '' }}">
+                                <i class="bi bi-plus"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
                     </ul>
-                  </li>
+                </li>
 
-                  {{-- UserList --}}
+                {{-- Posts --}}
+                <li class="nav-item has-treeview {{ Request::is('posts*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('posts*') ? 'active' : '' }}">
+                        <i class="bi bi-file-post"></i>
+                        <p>
+                            Posts
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('posts.index') }}"
+                                class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
+                                <i class="bi bi-list"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('posts.create') }}"
+                                class="nav-link {{ Route::is('categories.categoriesCreate') ? 'active' : '' }}">
+                                <i class="bi bi-plus"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                {{-- UserList --}}
                 @if (Auth::user()->role == 'superadmin')
                     <li class="nav-item ms-1">
                         <a href="{{ route('user.index') }}"

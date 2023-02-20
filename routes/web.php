@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DetailUsersController;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ Route::get('/', function() {
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
+Route::middleware(['verified', 'auth', 'is_blocked', 'spam'])->group(function(){
     // route home
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -86,6 +87,22 @@ Route::middleware(['verified', 'auth', 'is_blocked'])->group(function(){
         });
     })->name('categories');
 
+    Route::prefix('posts')->group(function (){
+        Route::controller(PostController::class)->group(function () {
+            // Route untuk return view
+            Route::get('/','index')->name('posts.index');
+            // Route view list
+            Route::get('/list','show')->name('posts.list');
+            // Route untuk menyimpan categories
+            Route::get('/view','create')->name('posts.create');
+            Route::post('/','store')->name('posts.store');
+            // Route untuk menghapus categories
+            Route::delete('/destroy/{id}','destroy')->name('posts.destroy');
+            // Route untuk mengedit categories dan view edit categories
+            Route::get('/edit/{id}','edit')->name('posts.edit');
+            Route::put('/edit/{id}','update')->name('posts.update');
+        });
+    })->name('categories');
 
     Route::prefix('my-profile')->group(function() {
         Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');

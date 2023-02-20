@@ -40,9 +40,10 @@ class MyProfileController extends Controller
 
         if ($request->file('images')) {
             $extension = $request->file('images')->getClientOriginalExtension();
-            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+            $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
 
             $request->file('images')->storeAs('images', $newImagesName);
+            $request->images->move(public_path('images'), $newImagesName);
         }
 
 

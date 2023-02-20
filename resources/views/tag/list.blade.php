@@ -25,6 +25,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Description</th>
                                     <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
@@ -44,7 +45,7 @@
     <script>
         $(document).ready(function() {
             $('table').DataTable({
-                 responsive: true,
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('tag.listTag') }}",
@@ -56,6 +57,10 @@
                     },
                     {
                         data: 'name',
+                        sortable: true,
+                    },
+                    {
+                        data: 'description',
                         sortable: true,
                     },
                     {

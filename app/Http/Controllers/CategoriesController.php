@@ -31,15 +31,19 @@ class CategoriesController extends Controller
         $request->validate(
             [
                 'name' => 'string',
+                'description' => 'string|required'
             ],
             [
                 'name.string' => 'category harus bernilai string',
+                'description.string' => 'description harus bernilai string',
+                'description.required' => 'description wajib di isi',
             ]
         );
 
         $data =
         [
             'name' => $request->name,
+            'description' => $request->description,
             'created_by' => Auth::user()->name,
         ];
 
@@ -96,13 +100,15 @@ class CategoriesController extends Controller
 
         $data = [
             'name' => $request->name,
+            'description' => $request->description,
+
         ];
 
         $CategoriesFind = Categories::find($id->id);
 
         $CategoriesFind->update($data);
 
-        return redirect('/tag')->with('success', 'Categories berhasil di update');
+        return redirect('/categories')->with('success', 'Categories berhasil di update');
     }
 
 

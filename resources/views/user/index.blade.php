@@ -37,8 +37,9 @@
             </div>
         </div>
     </div>
-@endsection
 
+    @include('include.modal-delete')
+@endsection
 
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
@@ -79,6 +80,5 @@
             });
         });
     </script>
-
-    <script src="{!! asset('assets/js/user/delete.js') !!}"></script>
+<script src="{!! asset('js/user/delete.js') !!}"></script>
 @endpush

@@ -3,32 +3,76 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col">
             <div class="card">
-                <div class="card-header text-bold">{{ __('Create Category') }}</div>
-
+                <div class="card-header">{{ __('Create Category') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('categories.Storecategories') }}">
+                    <form
+                        action="{{ route('categories.Storecategories') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
                         @csrf
+                        {{-- Name --}}
                         <div class="row mb-3">
-                            <label for="category" class="col-md-2 col-form-label text-center">{{ __('Category Name') }}</label>
+                            <label
+                                for="name"
+                                class="col-md-4 col-form-label text-md-end"
+                            >{{ __('Name') }}</label>
 
-                            <div class="col-md-10">
-                                <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="name" value="{{ old('category') }}" autocomplete="category">
+                            <div class="col-md-6">
+                                <input
+                                    id="name"
+                                    type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    name="name"
+                                >
 
-                                @error('category')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('name')
+                                    <span
+                                        class="invalid-feedback"
+                                        role="alert"
+                                    >
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
-                        <input type="hidden" name="created_by" value="{{ Auth::user()->name }}">
 
+                        {{-- description --}}
+                        <div class="row mb-3">
+                            <label
+                                for="description"
+                                class="col-md-4 col-form-label text-md-end"
+                            >{{ __('Alamat') }}</label>
+
+                            <div class="col-md-6">
+                                <textarea
+                                    id="description"
+                                    type="text"
+                                    class="form-control @error('description') is-invalid @enderror"
+                                    name="description"
+                                ></textarea>
+
+                                @error('description')
+                                    <span
+                                        class="invalid-feedback"
+                                        role="alert"
+                                    >
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Save --}}
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-5">
-                                <button type="submit" class="btn btn-secondary">
-                                    {{ __('Create') }}
+                            <div class="col-md-6 offset-md-4">
+                                <button
+                                    type="submit"
+                                    class="btn btn-dark"
+                                >
+                                    {{ __('Save') }}
                                 </button>
                             </div>
                         </div>

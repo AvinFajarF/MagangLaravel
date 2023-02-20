@@ -17,10 +17,10 @@ class UserController extends Controller
             ->eloquent(User::query()->where('role', '!=', 'superadmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
-                    <form onsubmit="destroy(event)" action="' . route('destroy', $user->id) . '" method="POST" class="delete-form">
+                  <form onsubmit="destroy(event)" action="'.route('destroy', $user->id) .'" method="POST">
                     <input type="hidden" name="_token" value="' . @csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button onclick="return confirm(`Apakah anda ingin menghapus data ini?`)" class="btn btn-sm btn-danger mr-2">
+                    <button class="btn btn-sm btn-danger mr-2">
                     <i class="fa fa-trash"></i>
                     </button>
                     <a href="' . route('user.update', $user->id) . '" class="btn btn-primary btn-sm"><i class="bi bi-info-circle"></i></a>
