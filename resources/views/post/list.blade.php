@@ -24,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>image</th>
                                     <th>Title</th>
                                     <th>Content</th>
                                     <th>Created By</th>
@@ -56,6 +57,10 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         searchable: false,
+                        sortable: false,
+                    },
+                    {
+                        data: 'image',
                         sortable: false,
                     },
                     {

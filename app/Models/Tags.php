@@ -18,5 +18,9 @@ class Tags extends Model
         'created_by',
     ];
 
+    protected $attributes = [
+        'description' => null,
+    ];
+
 
 }

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Profile') }}</div>
+                    <div class="card-header">{{ __('Edit Posts') }}</div>
                     <div class="card-body">
                         <form action="{{route('posts.update', $posts->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -64,6 +64,63 @@
                                     @enderror
                                 </div>
                             </div>
+
+                              {{-- Check box  Category--}}
+
+
+                              <div class="row mb-3">
+                                <label for="Chategory"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Chategory') }}</label>
+                                <div class="col-md-6">
+
+                                    <div class="input-group mb-3" id="check">
+                                        <div class="input-group-prepend">
+                                          <label class="input-group-text" for="inputGroupSelect01">Chategory</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01">
+                                          <option selected>Choose...</option>
+                                          <option value="1">One</option>
+                                          <option value="2">Two</option>
+                                          <option value="3">Three</option>
+                                        </select>
+                                      </div>
+
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            {{-- Checkbox Tags --}}
+                            <div class="row mb-3">
+                                <label for="Tag"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Tag') }}</label>
+                                <div class="col-md-6">
+
+                                    <div class="input-group mb-3" id="check">
+                                        <div class="input-group-prepend">
+                                          <label class="input-group-text" for="inputGroupSelect01">Tag</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01">
+                                          <option selected>Choose...</option>
+                                          <option value="1">One</option>
+                                          <option value="2">Two</option>
+                                          <option value="3">Three</option>
+                                        </select>
+                                      </div>
+
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                             {{-- Save --}}
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

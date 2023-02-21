@@ -30,13 +30,13 @@ class CategoriesController extends Controller
 
         $request->validate(
             [
-                'name' => 'string',
-                'description' => 'string|required'
+                'name' => 'string|required',
+                'description' => 'string|nullabel'
             ],
             [
                 'name.string' => 'category harus bernilai string',
+                'name.required' => 'name wajib di isi',
                 'description.string' => 'description harus bernilai string',
-                'description.required' => 'description wajib di isi',
             ]
         );
 
@@ -95,7 +95,16 @@ class CategoriesController extends Controller
         $request->validate(
             [
                 'name' => 'required|string',
+                'description' => 'string',
+            ],
+
+            [
+                'name.string' => 'category harus bernilai string',
+                'name.required' => 'name wajib di isi',
+                'description.string' => 'description harus bernilai string',
+
             ]
+
         );
 
         $data = [

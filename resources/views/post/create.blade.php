@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">{{ __('Edit Profile') }}</div>
+                    <div class="card-header">{{ __('Create Posts') }}</div>
                     <div class="card-body">
                         <form action="/posts" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -30,10 +30,11 @@
                             <div class="row mb-3">
                                 <label for="content"
                                     class="col-md-4 col-form-label text-md-end">{{ __('content') }}</label>
-
                                 <div class="col-md-6">
+                                    <input id="content" type="hidden"
+                                        class="form-control @error('content') is-invalid @enderror" name="content"
+                                        value="" autocomplete="off" autofocus>
                                     <textarea id="content" type="text" class="form-control @error('content') is-invalid @enderror" name="content"></textarea>
-
                                     @error('content')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -41,6 +42,22 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            {{-- <div class="row mb-3">
+                                <label for="content"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('content') }}</label>
+                                @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <div class="col-md-6">
+                                    <input id="content" type="hidden"
+                                        class="form-control @error('content') is-invalid @enderror" name="content"
+                                        value="" autocomplete="off" autofocus>
+                                    <textarea id="summernote" input="content" name="content"></textarea>
+                                </div>
+                            </div> --}}
                             {{-- images --}}
                             <div class="row mb-3">
                                 <label for="image"
@@ -49,14 +66,13 @@
                                     <div class="input-group mb-3">
                                         <div>
                                             <input name="image" class="form-control @error('image') is-invalid @enderror"
-                                                 type="file"
-                                                accept="image/*" id="formFile">
+                                                type="file" accept="image/*" id="formFile">
                                             <small for="formFile" class="form-label">Silahkan Upload Foto Anda</small>
                                         </div>
                                     </div>
                                     @if ($errors->has('image'))
-                            <span class="text-danger">{{ $errors->first('image') }}</span>
-                        @endif
+                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                    @endif
                                     @error('image')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -64,6 +80,63 @@
                                     @enderror
                                 </div>
                             </div>
+                            {{-- Check box  Category--}}
+
+
+                            <div class="row mb-3">
+                                <label for="Chategory"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Chategory') }}</label>
+                                <div class="col-md-6">
+
+                                    <div class="input-group mb-3" id="check">
+                                        <div class="input-group-prepend">
+                                          <label class="input-group-text" for="inputGroupSelect01">Chategory</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01">
+                                          <option selected>Choose...</option>
+                                          <option value="1">One</option>
+                                          <option value="2">Two</option>
+                                          <option value="3">Three</option>
+                                        </select>
+                                      </div>
+
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            {{-- Checkbox Tags --}}
+                            <div class="row mb-3">
+                                <label for="Tag"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Tag') }}</label>
+                                <div class="col-md-6">
+
+                                    <div class="input-group mb-3" id="check">
+                                        <div class="input-group-prepend">
+                                          <label class="input-group-text" for="inputGroupSelect01">Tag</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01">
+                                          <option selected>Choose...</option>
+                                          <option value="1">One</option>
+                                          <option value="2">Two</option>
+                                          <option value="3">Three</option>
+                                        </select>
+                                      </div>
+
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
                             {{-- Save --}}
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">

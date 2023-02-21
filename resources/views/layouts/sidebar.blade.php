@@ -55,7 +55,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('tag.TagView') }}"
-                                class="nav-link {{ Request::is('tag.TagView') ? 'active' : '' }}">
+                                class="nav-link {{ (Request::is('tag')) ? 'active' : '' }}">
                                 <i class="bi bi-list"></i>
                                 <p>List</p>
                             </a>
@@ -81,7 +81,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('categories.categoriesView') }}"
-                                class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('categories') ? 'active' : '' }}">
                                 <i class="bi bi-list"></i>
                                 <p>List</p>
                             </a>
@@ -108,14 +108,14 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('posts.index') }}"
-                                class="nav-link {{ Request::is('categories.categoriesView') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('posts') ? 'active' : '' }}">
                                 <i class="bi bi-list"></i>
                                 <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('posts.create') }}"
-                                class="nav-link {{ Route::is('categories.categoriesCreate') ? 'active' : '' }}">
+                                class="nav-link {{ Route::is('posts.create') ? 'active' : '' }}">
                                 <i class="bi bi-plus"></i>
                                 <p>Create</p>
                             </a>

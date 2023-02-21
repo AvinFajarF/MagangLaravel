@@ -26,7 +26,7 @@ Route::get('/', function() {
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(['verified', 'auth', 'is_blocked', 'spam'])->group(function(){
+Route::middleware(['verified', 'auth', 'is_blocked', 'spam','xss'])->group(function(){
     // route home
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -102,7 +102,7 @@ Route::middleware(['verified', 'auth', 'is_blocked', 'spam'])->group(function(){
             Route::get('/edit/{id}','edit')->name('posts.edit');
             Route::put('/edit/{id}','update')->name('posts.update');
         });
-    })->name('categories');
+    })->name('posts');
 
     Route::prefix('my-profile')->group(function() {
         Route::get('/', [MyProfileController::class, 'index'])->name('my.profile.index');

@@ -44,7 +44,7 @@
 
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vstestersaasendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         let userDatatable;
         $(document).ready(function() {

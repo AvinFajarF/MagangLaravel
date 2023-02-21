@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'rolecek' => \App\Http\Middleware\roleCek::class,
         'is_blocked' => \App\Http\Middleware\is_blocked::class,
+        'xss' => \App\Http\Middleware\xss::class,
         'spam' => \Spatie\Honeypot\ProtectAgainstSpam::class,
     ];
 }

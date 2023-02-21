@@ -32,10 +32,12 @@ class TagsController extends Controller
 
         $request->validate(
             [
-                'tag' => "string"
+                'tag' => "string|required",
+                'description' => 'string|nullable'
             ],
             [
-                'tag.string' => "tag harus bernilai string"
+                'tag.string' => "tag harus bernilai string",
+                'description.string' => "description harus bernilai string",
             ]
         );
 
@@ -95,6 +97,11 @@ class TagsController extends Controller
         $request->validate(
             [
                 'name' => ['required', 'string'],
+                'description' => 'string|nullable'
+            ],
+            [
+                'tag.string' => "tag harus bernilai string",
+                'description.string' => "description harus bernilai string",
             ]
         );
 

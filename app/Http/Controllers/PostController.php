@@ -3,38 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('post.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('post.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 
@@ -64,9 +52,9 @@ class PostController extends Controller
         ];
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $newImagesName = $request->title . '-' . now()->timestamp . '.' . $extension;
+            $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
 
-            $request->file('image')->storeAs('images', $newImagesName);
+            $request->image->move(public_path('images'), $newImagesName);
             $data['image'] = $newImagesName;
         }
 
@@ -99,6 +87,9 @@ class PostController extends Controller
                     </form>
                     ';
             })
+            ->editColumn('image', function($user) {
+                return '<img src="' . asset('storage/images/' . $user->image) . '" width="50px" class="rounded-circle">';
+            })
             ->editColumn('created_by', function ($user) {
                 return $user->created_by;
             })
@@ -107,25 +98,14 @@ class PostController extends Controller
             ->toJson();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $postFind = Posts::find($id);
         return view('post.edit',['posts' => $postFind]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $request->validate(
@@ -150,12 +130,7 @@ class PostController extends Controller
         return redirect('/tag')->with('success', 'Tag dengan nama ' . $tagsFind->name . ' berhasil di update');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $postDelete = Posts::findOrFail($id)->delete();
@@ -164,5 +139,10 @@ class PostController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function dataTag()
+    {
+        $tag = Tags::all();
     }
 }
