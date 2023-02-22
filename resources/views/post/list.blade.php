@@ -20,8 +20,8 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table">
-                            <thead>
+                        <table class="table ">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
                                     <th>image</th>
@@ -38,7 +38,6 @@
         </div>
     </div>
     @include('include.modal-delete')
-
 @endsection
 
 

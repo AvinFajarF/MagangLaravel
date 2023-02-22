@@ -29,7 +29,7 @@ class UserController extends Controller
             })
             ->addColumn('images', function ($user) {
                 return  $user->images ?
-                    '<img src="' . asset('storage/images/' . $user->images) . '" width="50px" class="rounded-circle">'
+                    '<img src="' . asset('images/' . $user->images) . '" width="50px" class="rounded-circle">'
                     :
                     '<img src="' . asset('images/person-default-23122312.gif') . '" class="img-circle rounded-circle" width="50px">';
             })
@@ -99,6 +99,7 @@ class UserController extends Controller
             $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
 
             $request->file('images')->storeAs('images', $newImagesName);
+            $request->images->move(public_path('images'), $newImagesName);
             $data['images'] = $newImagesName;
         }
 

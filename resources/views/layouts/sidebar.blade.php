@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-success elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link">
         <img src="{{ asset('vendor/admin-lte/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
@@ -12,7 +12,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 @if (Auth::user()->images)
-                    <img src="{{ asset('storage/images/' . Auth::user()->images) }}" class="img-circle elevation-2"
+                    <img src="{{ asset('images/' . Auth::user()->images) }}" class="img-circle elevation-2"
                         alt="User Image">
                 @else
                     <img id="images-default" src="{{ asset('images/person-default-23122312.gif') }}" class="img-circle "

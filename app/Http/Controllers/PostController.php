@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
+use App\Models\Post_Tag;
 use App\Models\Posts;
 use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
 
     public function index()
     {
-        return view('post.list');
+        $coba = Posts::with(['tag', 'category'])->get();
+        return view('post.list', ['coba' => $coba]);
     }
 
 
     public function create()
     {
-        return view('post.create');
+
+        return view('post.create', ['tags' => Tags::all(), 'category' => Categories::all()]);
     }
 
 
@@ -44,21 +49,26 @@ class PostController extends Controller
         );
 
         $data =
-        [
-            'title' => $request->title,
-            'content' => $request->content,
-            'image' => $request->image,
-            'created_by' => Auth::user()->name,
-        ];
+            [
+                'title' => $request->title,
+                'content' => $request->content,
+                'image' => $request->image,
+                'created_by' => Auth::user()->name,
+            ];
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
 
-            $request->image->move(public_path('images'), $newImagesName);
+            $request->file('image')->storeAs('images', $newImagesName);
+            $request->images->move(public_path('images'), $newImagesName);
             $data['image'] = $newImagesName;
         }
 
-        Posts::create($data);
+
+        $post =  Posts::create($data);
+
+        $post->tag()->attach($request->tags);
+        $post->category()->attach($request->categories);
 
         return redirect('/posts')->with('success', 'Berhasil membuat post');
     }
@@ -87,8 +97,8 @@ class PostController extends Controller
                     </form>
                     ';
             })
-            ->editColumn('image', function($user) {
-                return '<img src="' . asset('storage/images/' . $user->image) . '" width="50px" class="rounded-circle">';
+            ->editColumn('image', function ($user) {
+                return '<img src="' . asset('images/' . $user->image) . '" width="50px" class="rounded-circle">';
             })
             ->editColumn('created_by', function ($user) {
                 return $user->created_by;
@@ -102,7 +112,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $postFind = Posts::find($id);
-        return view('post.edit',['posts' => $postFind]);
+        return view('post.edit', [
+            'post' => $postFind, "categories" => Categories::all(),
+            "tags" => Tags::all()
+        ]);
     }
 
 
@@ -117,17 +130,33 @@ class PostController extends Controller
         );
 
         $data =
-        [
-            'title' => $request->title,
-            'content' => $request->content,
-            'image' => $request->image,
-            'created_by' => Auth::user()->name,
-        ];
+            [
+                'title' => $request->title,
+                'content' => $request->content,
+                'image' => $request->image,
+                'created_by' => Auth::user()->name,
+            ];
+
+        if ($request->file('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+
+            $request->file('image')->storeAs('images', $newImagesName);
+            $request->images->move(public_path('storage/images'), $newImagesName);
+            $data['image'] = $newImagesName;
+        }
+
+
         $tagsFind = Posts::find($id);
+        if ($request->hasFile('image')) {
+            Storage::delete($tagsFind->image); // Menghapus gambar yang sudah ada
+            $path = $request->file('image')->store('public/images');
+            $tagsFind->profile_image = $path;
+        }
 
         $tagsFind->update($data);
 
-        return redirect('/tag')->with('success', 'Tag dengan nama ' . $tagsFind->name . ' berhasil di update');
+        return redirect('/posts')->with('success', 'Data Posts berhasil di update');
     }
 
 

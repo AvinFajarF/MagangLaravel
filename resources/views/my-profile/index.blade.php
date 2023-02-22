@@ -126,11 +126,6 @@
                             </div>
                             {{-- images --}}
 
-                            {{-- <div class="mt-3">
-                                <img class="outimgd" style="margin-left: 350px" width="200" src="{{ asset('storage/images/' . $users->images) }}" id="output">
-                            </div> --}}
-
-
                             <div class="row mb-3">
                                 <label
                                     for="images"
@@ -138,7 +133,7 @@
                                 >{{ __('Foto') }}</label>
                                 <div class="col-md-6">
                                     @if (Auth::user()->images)
-                                        <img src="{{ asset('storage/images/' . $users->images) }}" class="img-fluid mb-3 rounded">
+                                        <img src="{{ asset('images/' . $users->images) }}" class="img-fluid mb-3 rounded">
                                         @else
                                         <img id="profile" src="{{ asset('vendor/admin-lte/img/user-profile-default.jpg') }}" class="mb-3 img-circle elevation
                                     @endif

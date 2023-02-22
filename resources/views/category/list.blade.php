@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <table class="table">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>

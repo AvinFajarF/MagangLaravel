@@ -56,7 +56,7 @@
                         @if ($users->images == '')
                         <img id="image" class="rounded-circle shadow-4-strong" src="{{ asset('images/person-default-23122312.gif') }}" title="" alt="">
                         @endif
-                        <img id="image" class="rounded-circle shadow-4-strong" src="{{ asset('storage/images/' . $users->images) }}" title="" alt="">
+                        <img id="image" class="rounded-circle shadow-4-strong" src="{{ asset('images/' . $users->images) }}" title="" alt="">
 
                     </div>
                 </div>
