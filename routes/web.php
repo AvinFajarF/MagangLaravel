@@ -21,6 +21,8 @@ use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// File log
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/news/{slug}',[IndexController::class, 'detail'])->name('news.detail');

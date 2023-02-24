@@ -60,7 +60,7 @@ class PostController extends Controller
                 'is_pinned' => $request->is_pinned,
                 'created_by' => Auth::user()->name,
             ];
-            
+
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $newImagesName = Auth::user()->name . '-' . now()->timestamp . '.' . $extension;
@@ -159,15 +159,19 @@ class PostController extends Controller
             $data['image'] = $tagsFind->image;
         }
 
+        $tagsFind->tag()->sync($request->tags);
+        $tagsFind->category()->sync($request->categories);
         $tagsFind->update($data);
 
         return redirect('/posts')->with('success', 'Data Posts berhasil di update');
     }
 
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $postDelete = Posts::findOrFail($id)->delete();
+        $postDelete->tag()->delete($request->tags);
+        $postDelete->category()->delete($request->categories);
         if ($postDelete) {
             Session::flash('success', 'Berhasil menghapus data');
         }

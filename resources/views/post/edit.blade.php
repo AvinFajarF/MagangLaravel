@@ -86,30 +86,31 @@
                                 </div>
                             </div>
 
-                             {{-- pinned  --}}
-                             <div class="row mb-3">
-                                <label for="is_pinned"
+                              {{-- pinned  --}}
+                            <div class="row mb-3">
+                                <label for="tag"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label>
+                                <div class="col-md-6 mt-2">
+                                    <div class="form-check form-check-inline">
 
-                                <div class="col-md-6">
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" name="is_pinned"
-                                            value="1" {{ $post->is_pinned == 1 ? 'checked' : '' }} autocomplete="off">
-                                        <label class="btn btn-success me-2">Pinned</label>
+                                            <input class="form-check-input mx-2" type="checkbox" name="is_pinned"
+                                                value="1">
+                                            <label class="form-check-label">Pin</label>
 
-                                        <input type="radio" class="btn-check" name="is_pinned"
-                                            value="0" {{ $post->is_pinned == 0 ? 'checked' : '' }} autocomplete="off">
-                                        <label class="btn btn-warning" >No Pin</label>
+                                            <input class="form-check-input mx-2" type="checkbox" name="is_pinned"
+                                            value="0">
+                                        <label class="form-check-label">No Pin</label>
+
 
                                     </div>
-
-                                    @error('is_pinned')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <div class="error mb-3 mt-3">
+                                        @error('is_pinned')
+                                       <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
+
 
                             {{-- images --}}
                             <div class="row mb-3">

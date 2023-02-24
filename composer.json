@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "rap2hpoutre/laravel-log-viewer": "^2.3",
         "spatie/laravel-honeypot": "^4.3",
         "yajra/laravel-datatables-html": "^9.0",
         "yajra/laravel-datatables-oracle": "^10.0"

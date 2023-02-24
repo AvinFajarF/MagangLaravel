@@ -80,7 +80,8 @@
                         sortable: false,
                     },
                     {
-                        data: 'is_pinned'
+                        data: 'is_pinned',
+                        sortable: false
                     },
                 ],
             });
