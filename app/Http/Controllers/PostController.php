@@ -37,6 +37,8 @@ class PostController extends Controller
                 'title' => 'string|required',
                 'content' => 'string|required',
                 'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+                'tags'  => 'required',
+                'categories' => 'required',
             ],
             [
                 'title.string' => "title harus bernilai string",
@@ -44,7 +46,9 @@ class PostController extends Controller
                 'content.string' => "content harus bernilai string",
                 'content.required' => "content wajib di isi",
                 'image.string' => "image harus bernilai string",
-                'image.required' => "image wajib di isi"
+                'image.required' => "image wajib di isi",
+                'tags.required' => 'Tags wajib di isi',
+                'categories.required' => 'Categories wajib di isi',
             ]
         );
 
@@ -53,14 +57,16 @@ class PostController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'image' => $request->image,
+                'is_pinned' => $request->is_pinned,
                 'created_by' => Auth::user()->name,
             ];
+            
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $newImagesName = $request->name . '-' . now()->timestamp . '.' . $extension;
+            $newImagesName = Auth::user()->name . '-' . now()->timestamp . '.' . $extension;
 
             $request->file('image')->storeAs('images', $newImagesName);
-            $request->images->move(public_path('images'), $newImagesName);
+            $request->image->move(public_path('images'), $newImagesName);
             $data['image'] = $newImagesName;
         }
 
@@ -103,6 +109,9 @@ class PostController extends Controller
             ->editColumn('created_by', function ($user) {
                 return $user->created_by;
             })
+            ->editColumn('is_pinned', function ($post) {
+                return $post->is_pinned == 1 ? '<i class="bi bi-pin"></i>' : '<i class="bi bi-dash"></i>';
+            })
             ->addIndexColumn()
             ->escapeColumns(['action'])
             ->toJson();
@@ -128,30 +137,26 @@ class PostController extends Controller
                 'image' => 'image|mimes:jpg,png,jpeg,gif,svg'
             ]
         );
+        $tagsFind = Posts::find($id);
 
         $data =
             [
                 'title' => $request->title,
                 'content' => $request->content,
                 'image' => $request->image,
+                'is_pinned' => $request->is_pinned,
                 'created_by' => Auth::user()->name,
             ];
 
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $newImagesName = $request->tanggal_lahir . '-' . now()->timestamp . '.' . $extension;
+            $newImagesName = Auth::user()->name . '-' . now()->timestamp . '.' . $extension;
 
             $request->file('image')->storeAs('images', $newImagesName);
-            $request->images->move(public_path('storage/images'), $newImagesName);
+            $request->image->move(public_path('images'), $newImagesName);
             $data['image'] = $newImagesName;
-        }
-
-
-        $tagsFind = Posts::find($id);
-        if ($request->hasFile('image')) {
-            Storage::delete($tagsFind->image); // Menghapus gambar yang sudah ada
-            $path = $request->file('image')->store('public/images');
-            $tagsFind->profile_image = $path;
+        }else{
+            $data['image'] = $tagsFind->image;
         }
 
         $tagsFind->update($data);

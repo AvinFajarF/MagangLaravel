@@ -14,6 +14,7 @@
                     <div class="card-body">
                         <form action="/posts" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method("POST")
                             <x-honeypot />
                             {{-- TITLE --}}
                             <div class="row mb-3">
@@ -39,11 +40,12 @@
                                 <div class="col-md-6">
                                     <textarea id="summernote" name="content"></textarea>
 
+
                                     @error('content')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                       <span class="text-danger"> {{ $message }}</span>
                                     @enderror
+
+
                                 </div>
                             </div>
 
@@ -55,12 +57,17 @@
                                 <div class="col-md-6 mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                                         @foreach ($category as $category)
-                                            <input type="checkbox" name="categories[]" class="btn-check"
+                                            <input type="checkbox" name="categories[]" class="btn-check me-5"
                                                 id="categories_{{ $category->id }}" autocomplete="off"
                                                 value="{{ old('category', $category->id) }}">
-                                            <label class="btn btn-sm btn-outline-success"
+                                            <label class="btn btn-sm btn-outline-success ms-2"
                                                 for="categories_{{ $category->id }}">{{ $category->name }}</label>
                                         @endforeach
+                                    </div>
+                                    <div class="error mb-3 mt-3">
+                                        @error('categories')
+                                       <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +85,40 @@
                                         @endforeach
 
                                     </div>
+                                    <div class="error mb-3 mt-3">
+                                        @error('tags')
+                                       <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
+
+                              {{-- pinned  --}}
+                            <div class="row mb-3">
+                                <label for="tag"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label>
+                                <div class="col-md-6 mt-2">
+                                    <div class="form-check form-check-inline">
+
+                                            <input class="form-check-input mx-2" type="checkbox" name="is_pinned"
+                                                value="1">
+                                            <label class="form-check-label">Pin</label>
+
+                                            <input class="form-check-input mx-2" type="checkbox" name="is_pinned"
+                                            value="0">
+                                        <label class="form-check-label">No Pin</label>
+
+
+                                    </div>
+                                    <div class="error mb-3 mt-3">
+                                        @error('is_pinned')
+                                       <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+
 
 
                             {{-- images --}}

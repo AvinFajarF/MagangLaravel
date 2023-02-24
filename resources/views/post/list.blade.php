@@ -29,6 +29,7 @@
                                     <th>Content</th>
                                     <th>Created By</th>
                                     <th>Action</th>
+                                    <th>Pinned</th>
                                 </tr>
                             </thead>
                         </table>
@@ -77,6 +78,9 @@
                     {
                         data: 'action',
                         sortable: false,
+                    },
+                    {
+                        data: 'is_pinned'
                     },
                 ],
             });

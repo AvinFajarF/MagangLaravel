@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+@endpush
+
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col">
@@ -29,22 +35,22 @@
                             </div>
 
 
-                            {{-- Content --}}
                             <div class="row mb-3">
                                 <label for="content"
                                     class="col-md-4 col-form-label text-md-end">{{ __('content') }}</label>
-                                @error('content')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                                 <div class="col-md-6">
-                                    <input id="content" type="hidden"
-                                        class="form-control @error('content') is-invalid @enderror" name="content"
-                                        value="{{ old('content', $post->content) }}" autocomplete="off" autofocus>
-                                    <textarea id="summernote" input="content" name="content">{{ old('content', $post->content) }}</textarea>
+                                    <textarea id="summernote" name="content">{{$post->content}}</textarea>
+
+
+                                    @error('content')
+                                       <span class="text-danger"> {{ $message }}</span>
+                                    @enderror
+
+
                                 </div>
                             </div>
+
+
                             {{-- Category --}}
                             <div class="row mb-3">
                                 <label for="category"
@@ -52,7 +58,7 @@
                                 <div class="col-md-6 mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                                         @foreach ($categories as $category)
-                                            <input type="checkbox" name="categories[]" class="btn-check"
+                                            <input type="checkbox" name="categories[]" class="btn-check me-4"
                                                 id="categories_{{ $category->id }}" autocomplete="off"
                                                 value="{{ old('category', $category->id) }}"
                                                 {{ in_array($category->id, $post->category->pluck('id')->toArray()) ? 'checked' : '' }}>
@@ -80,6 +86,31 @@
                                 </div>
                             </div>
 
+                             {{-- pinned  --}}
+                             <div class="row mb-3">
+                                <label for="is_pinned"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Pin') }}</label>
+
+                                <div class="col-md-6">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="is_pinned"
+                                            value="1" {{ $post->is_pinned == 1 ? 'checked' : '' }} autocomplete="off">
+                                        <label class="btn btn-success me-2">Pinned</label>
+
+                                        <input type="radio" class="btn-check" name="is_pinned"
+                                            value="0" {{ $post->is_pinned == 0 ? 'checked' : '' }} autocomplete="off">
+                                        <label class="btn btn-warning" >No Pin</label>
+
+                                    </div>
+
+                                    @error('is_pinned')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             {{-- images --}}
                             <div class="row mb-3">
                                 <label for="image"
@@ -87,7 +118,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
                                         <div>
-                                            <input name="image" class="form-control @error('image') is-invalid @enderror"
+                                            <input name="image" value="{{$post->image}}" class="form-control @error('image') is-invalid @enderror"
                                                 type="file" accept="image/*" id="formFile">
                                             <small for="formFile" class="form-label">Silahkan Upload Foto Anda</small>
                                         </div>
@@ -104,7 +135,6 @@
                             </div>
 
 
-
                             {{-- Save --}}
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -119,4 +149,15 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
+    @endpush
 @endsection
