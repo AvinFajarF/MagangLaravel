@@ -160,7 +160,7 @@ class PostController extends Controller
         }
 
         $tagsFind->tag()->sync($request->tags);
-        $tagsFind->category()->sync($request->categories);
+        $tagsFind->category()->syncP($request->categories);
         $tagsFind->update($data);
 
         return redirect('/posts')->with('success', 'Data Posts berhasil di update');
@@ -173,10 +173,12 @@ class PostController extends Controller
         $postDelete->tag()->delete($request->tags);
         $postDelete->category()->delete($request->categories);
         if ($postDelete) {
-            Session::flash('success', 'Berhasil menghapus data');
+            return response()->json([
+                'message' => 'Post deleted successfully.'
+            ]);
         }
 
-        return redirect()->back();
+      
     }
 
     public function dataTag()

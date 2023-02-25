@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/toastr/toastr.min.css') }}">
 @endpush
 
 @section('content')
@@ -44,12 +46,16 @@
 
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         let userDatatable;
         $(document).ready(function() {
-            userDatatable =  $('table').DataTable({
-                 responsive: true,
+            userDatatable = $('table').DataTable({
+                // dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                //     "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+                //     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('posts.list') }}",
@@ -87,7 +93,15 @@
             });
         });
     </script>
+    <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/user/delete.js') }}"></script>
+    <script>
+        const successMessage = "{{ session()->get('success') }}";
+        if (successMessage) {
+            toastr.success(successMessage)
+        }
+        let postList = "{{ route('posts.list') }}"
+    </script>
 
+    <script src="{{ asset('assets/js/user/delete.js') }}"></script>
 @endpush

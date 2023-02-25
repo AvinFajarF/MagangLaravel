@@ -48,7 +48,6 @@ class TagsController extends Controller
                 'created_by' => Auth::user()->name,
             ];
 
-
         Tags::create($data);
 
         return redirect('/tag')->with('success', 'Berhasil membuat tag');

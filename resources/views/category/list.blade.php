@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
 @endpush
 
 @section('content')
@@ -38,17 +39,17 @@
     </div>
 
     @include('include.modal-delete')
-
 @endsection
 
 
 @push('scripts')
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         let userDatatable;
         $(document).ready(function() {
-            userDatatable =  $('table').DataTable({
+            userDatatable = $('table').DataTable({
                 responsive: true,
                 processing: true,
                 serverSide: true,
@@ -78,6 +79,5 @@
             });
         });
     </script>
-<script src="{{ asset('assets/js/user/delete.js') }}"></script>
-
+    <script src="{{ asset('assets/js/user/delete.js') }}"></script>
 @endpush

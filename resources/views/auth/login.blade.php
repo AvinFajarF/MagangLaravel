@@ -109,7 +109,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand">Navbar</a>
-            <a href="" class="d-flex btn btn-warning rounded-pill">Register</a>
+            <a href="{{ route('register') }}" class="d-flex btn btn-warning rounded-pill">Register</a>
         </div>
     </nav>
 

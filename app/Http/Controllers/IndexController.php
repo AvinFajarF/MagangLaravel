@@ -10,7 +10,10 @@ class IndexController extends Controller
     public function index()
     {
 
-        return view('main', ['posts' => Posts::paginate(6)]);
+        return view('main', [
+            'posts' => Posts::paginate(6),
+            'pinnedPosts' => Posts::latest()->where('is_pinned', true)->get()
+    ]);
     }
 
     public function detail($slug)

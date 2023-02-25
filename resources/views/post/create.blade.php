@@ -64,6 +64,12 @@
                                                 for="categories_{{ $category->id }}">{{ $category->name }}</label>
                                         @endforeach
                                     </div>
+
+                                    {{-- @empty
+                                    belum ada category
+                                    @endforelse --}}
+
+                                    
                                     <div class="error mb-3 mt-3">
                                         @error('categories')
                                        <p class="text-danger"> {{ $message }} </p>
