@@ -127,7 +127,7 @@
                 @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item has-treeview {{ Request::is('user*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
-                        <i class="bi bi-file-post"></i>
+                        <i class="bi bi-people-fill"></i>
                         <p>
                             User
                             <i class="right fas fa-angle-left"></i>

@@ -13,7 +13,7 @@ function destroy(event) {
             data: $(event.target).serialize(),
         })
             .done(function (res) {
-                postDatatable.ajax.reload();
+                userDatatable.ajax.reload();
                 $("#delete-modal").modal("hide");
                 confirmDelete.prop("disabled", false);
                 confirmDelete.text(confirmDeleteText);
