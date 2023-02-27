@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Konten</title>
     <link rel="stylesheet" href="{!! asset('assets/css/comments.css') !!}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
 </head>
 
@@ -35,7 +36,8 @@
         style="margin-top: 20vh; margin-left: 23%">
         <div class="row">
             <div class="col-lg-8">
-                <img src="{{ asset('images/' . $data->image) }}" class="rounded border border-3 img-fluid mb-4" alt="Gambar Konten">
+                <img src="{{ asset('images/' . $data->image) }}" class="rounded border border-3 img-fluid mb-4"
+                    alt="Gambar Konten">
                 <h1 class="mb-3">{{ $data->title }}</h1>
                 <p class="text-muted mb-3">Diposting oleh <i>{{ $data->created_by }}</i> pada <span
                         class="text-secondary">{{ $data->created_at }}</span></p>
@@ -49,30 +51,64 @@
 
     <div class="mb-5"></div>
 
+
+
     <!-- resources/views/posts/index.blade.php -->
 
 
-    <div class="coments mt-5">
-        <h5 class="ms-5"><span>7</span> Comments</h5>
-        <hr class="w-75 ms-5">
-        <div class="contents">
-            <form action="" method="post">
-                @csrf
-                <div class="form-floating">
-                    <textarea class="form-control w-50 ms-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea" class="ms-5"> Comments</label>
-                    <button class="btn btn-primary rounded mt-4" style="margin-left: 41rem">Submit</button>
-                  </div>
-            </form>
-        </div>
+    <section class="content-item" id="comments">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <form action="{{route('comments')}}" method="POST">
+                        @csrf
+                        <h3 class="pull-left">New Comment</h3>
+                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    @if (Auth::user()->images)
+                                        <img class="img-responsive" src="{{ asset('images/' . Auth::user()->images) }}"
+                                            width="100" alt="">
+                                    @else
+                                        <img class="img-responsive"
+                                            src="{{ asset('images/person-default-23122312.gif') }}" width="100"
+                                            alt="">
+                                    @endif
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <input type="hidden" name="post_id" value="{{ $data->id }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <textarea class="form-control" name="content" id="message" placeholder="Your message" required=""></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <h3>{{$comments->count()}} Comments</h3>
+                    @foreach ($comments as $item)
+                    <div class="media">
+                        <img class="img-responsive" src="{{ asset('images/' . $item->user->images) }}"
+                        width="100" alt="">
+                        <div class="media-body">
 
-        <div class="comentar">
-            <img src="{{asset('images/'. Auth::user()->images)}}" alt="" srcset="">
-            <p></p>
-        </div>
+                            <h4 class="media-heading mt-4">{{$item->user->name}}</h4>
+                            <p>{{$item->content}}
+                            </p>
+                            <ul class="list-unstyled list-inline media-detail pull-left">
+                                <li><i class="fa fa-calendar"></i>{{$item->created_at}}</li>
+                            </ul>
+                        </div>
+                    </div>
 
-    </div>
-    <br><br><br><br><br><br>
+                    @endforeach
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
 
 

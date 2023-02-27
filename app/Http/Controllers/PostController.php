@@ -159,6 +159,7 @@ class PostController extends Controller
             $data['image'] = $tagsFind->image;
         }
 
+
         $tagsFind->tag()->sync($request->tags);
         $tagsFind->category()->sync($request->categories);
         $tagsFind->update($data);

@@ -42,7 +42,7 @@ class Posts extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tags::class, 'post_tag','post_id','tag_id');
     }
 
     //    Slug
@@ -67,5 +67,22 @@ class Posts extends Model
 
         });
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when(isset($filters['category']), function ($query) use ($filters) {
+            $query->whereHas('category', function ($query) use ($filters) {
+                $query->where('name', $filters['category']);
+            });
+        });
+
+        $query->when(isset($filters['tag']), function ($query) use ($filters) {
+            $query->whereHas('tag', function ($query) use ($filters) {
+                $query->where('name', $filters['tag']);
+            });
+        });
+    }
+
+
 
 }

@@ -24,8 +24,13 @@ use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 // File log
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/news/{slug}',[IndexController::class, 'detail'])->name('news.detail');
+
+Route::controller(IndexController::class)->group(function () {
+    Route::get('/',  'index')->name('welcome');
+    Route::get('/news/{slug}', 'detail')->name('news.detail');
+    Route::post('/', 'StoreComment')->name("comments");
+
+});
 
 
 Auth::routes(['verify' => true]);

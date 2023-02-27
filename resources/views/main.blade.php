@@ -51,47 +51,70 @@
     {{-- Calaouser --}}
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
         </div>
 
         <div class="carousel-inner">
             @foreach ($pinnedPosts as $item)
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                <img src="{{asset('images/'. $item->image)}}" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>{{$item->title}}</h5>
-                    <p>{{$item->content}}</p>
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <img src="{{ asset('images/' . $item->image) }}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ $item->title }}</h5>
+                        <p>{{ $item->content }}</p>
+                    </div>
                 </div>
-            </div>
             @endforeach
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
-      </div>
+    </div>
 
 
     {{-- column --}}
     <div class="container marketing mt-5 d-flex">
         <div class="row d-flex">
             @foreach ($posts as $item)
-            <div class="col-lg-4 justify-content-between  gap-3">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{asset('images/'.$item->image)}}" class="card-img-top text-wrap" height="200" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{$item->title}}</h5>
-                      <p class="card-text text-truncate">{{$item->content}}</p>
-                      <a href="/news/{{ $item->slug }}" class="btn btn-primary">Go somewhere</a>
+                <div class="col-lg-4 justify-content-between  gap-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ asset('images/' . $item->image) }}" class="card-img-top text-wrap" height="200"
+                            alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->title }}</h5>
+                            <p class="card-text text-truncate">{{ $item->content }}</p>
+
+
+                            @foreach ($item->tag as $tags)
+                                <p class=" d-inline-block text-primary">
+                                    <a href="{{ route('welcome', ['tag' => $tags->name]) }}">#{{ $tags->name }}</a>
+                                </p>
+                            @endforeach
+                        </div>
+                        <div class="my-3">
+                            @foreach ($item->category as $category)
+                                <small class="d-inline-block me-2"><a
+                                        class="text-decoration-none p-1 rounded-3 text-dark"
+                                        href="{{ route('welcome', ['category' => $category->name]) }}"
+                                        style="border:1px solid black">{{ $category->name }}</a></small>
+                            @endforeach
+
+
+                            <a href="/news/{{ $item->slug }}" class="btn btn-primary">Details</a>
+                        </div>
                     </div>
-                  </div>
-            </div>
+                </div>
             @endforeach
         </div>
     </div>
