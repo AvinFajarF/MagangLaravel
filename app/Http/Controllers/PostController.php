@@ -160,7 +160,7 @@ class PostController extends Controller
         }
 
         $tagsFind->tag()->sync($request->tags);
-        $tagsFind->category()->syncP($request->categories);
+        $tagsFind->category()->sync($request->categories);
         $tagsFind->update($data);
 
         return redirect('/posts')->with('success', 'Data Posts berhasil di update');
@@ -178,11 +178,8 @@ class PostController extends Controller
             ]);
         }
 
-      
+
     }
 
-    public function dataTag()
-    {
-        $tag = Tags::all();
-    }
+
 }

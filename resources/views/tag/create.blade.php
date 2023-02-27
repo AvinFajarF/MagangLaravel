@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header bg-success">{{ __('Create Tags') }}</div>
                     <div class="card-body">
-                        <form action="{{ route('tag.StoreTag') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tag.StoreTag') }}" method="POST">
                             @csrf
                             {{-- Name --}}
                             <div class="row mb-3">

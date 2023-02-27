@@ -39,6 +39,12 @@ class Posts extends Model
         return $this->belongsToMany(Categories::class, 'post_category', 'post_id', 'category_id');
     }
 
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     //    Slug
     public function sluggable(): array
     {

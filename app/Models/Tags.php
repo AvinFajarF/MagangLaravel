@@ -12,7 +12,7 @@ class Tags extends Model
     use HasFactory;
 
     protected $table = 'tags';
-    
+
 
     protected $fillable =
     [
@@ -21,13 +21,15 @@ class Tags extends Model
         'created_by',
     ];
 
-    protected $attributes = [
-        'description' => null,
-    ];
-
     public function tag(): BelongsToMany
     {
         return $this->belongsToMany(Posts::class);
+    }
+
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
     }
 
 

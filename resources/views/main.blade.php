@@ -87,7 +87,7 @@
                     <img src="{{asset('images/'.$item->image)}}" class="card-img-top text-wrap" height="200" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{$item->title}}</h5>
-                      <p class="card-text">{{$item->content}}</p>
+                      <p class="card-text text-truncate">{{$item->content}}</p>
                       <a href="/news/{{ $item->slug }}" class="btn btn-primary">Go somewhere</a>
                     </div>
                   </div>

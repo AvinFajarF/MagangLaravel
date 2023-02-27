@@ -27,9 +27,10 @@ Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'i
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/news/{slug}',[IndexController::class, 'detail'])->name('news.detail');
 
+
 Auth::routes(['verify' => true]);
 
-Route::middleware(['verified', 'auth', 'is_blocked', 'spam','xss'])->group(function(){
+Route::middleware(['verified', 'auth', 'is_blocked', 'spam','xss','member'])->group(function(){
     // route home
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -50,8 +51,12 @@ Route::middleware(['verified', 'auth', 'is_blocked', 'spam','xss'])->group(funct
 
             // Route untuk delete user
             Route::delete('/delete/{user}', 'destroy')->name('destroy');
+
+            // Route untuk membuat user
+            Route::get('/create','create')->name("user.create");
+            Route::post('/create','store')->name('user.store');
         });
-    });
+    })->name('user');
 
     // Route untuk tag
     Route::prefix('tag')->group(function (){

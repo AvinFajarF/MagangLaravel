@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
             ->eloquent(User::query()->where('role', '!=', 'superadmin')->latest())
             ->addColumn('action', function ($user) {
                 return '
-                  <form onsubmit="destroy(event)" action="'.route('destroy', $user->id) .'" method="POST">
+                  <form onsubmit="destroy(event)" action="' . route('destroy', $user->id) . '" method="POST">
                     <input type="hidden" name="_token" value="' . @csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
                     <button class="btn btn-sm btn-danger mr-2">
@@ -109,5 +110,42 @@ class UserController extends Controller
         $find->update($data);
 
         return redirect('/user');
+    }
+
+    public function create()
+    {
+        return view('user.create');
+    }
+
+    public function store(Request $request)
+    {
+
+        // Validasi inputan user
+        $request->validate(
+            [
+                'name' => 'string|required',
+                'email' => 'email|required|unique:users',
+                'password' => 'required',
+            ],
+            [
+                'name.string' => 'nama harus bernilai string',
+                'email.email' => 'masukan sesuai format email example@gmail.com',
+                'email.unique' => 'email sudah pernah di gunakan silahkan gunakan email lainya',
+                'password.required' => 'password wajib di isi'
+
+            ]
+        );
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'admin',
+            'password' => Hash::make($request->password),
+        ];
+
+        User::create($data);
+        return redirect('/user');
+        
+
     }
 }

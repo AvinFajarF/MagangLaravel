@@ -125,15 +125,31 @@
 
                 {{-- UserList --}}
                 @if (Auth::user()->role == 'superadmin')
-                    <li class="nav-item ms-1">
-                        <a href="{{ route('user.index') }}"
-                            class="nav-link {{ Route::is('user.index') || Route::is('user.detail') ? 'active' : '' }}">
-                            <i class="bi  bi-people-fill"></i>
-                            <p class="ms-2">
-                                User
-                            </p>
-                        </a>
-                    </li>
+                <li class="nav-item has-treeview {{ Request::is('user*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                        <i class="bi bi-file-post"></i>
+                        <p>
+                            User
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('user.index') }}"
+                                class="nav-link {{ Request::is('user') ? 'active' : '' }}">
+                                <i class="bi bi-list"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('user.create') }}"
+                                class="nav-link {{ Route::is('user.create') ? 'active' : '' }}">
+                                <i class="bi bi-plus"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endif
             </ul>
             </li>
