@@ -137,16 +137,21 @@ class PostController extends Controller
                 'image' => 'image|mimes:jpg,png,jpeg,gif,svg'
             ]
         );
-        $tagsFind = Posts::find($id);
+        $tagsFind = Posts::findOrFail($id);
 
         $data =
             [
                 'title' => $request->title,
                 'content' => $request->content,
                 'image' => $request->image,
-                'is_pinned' => $request->is_pinned,
                 'created_by' => Auth::user()->name,
             ];
+
+        if ($request->is_pinned === null) {
+            $data['is_pinned'] = 0;
+        } else {
+            $data['is_pinned'] = 1;
+        }
 
         if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -155,13 +160,13 @@ class PostController extends Controller
             $request->file('image')->storeAs('images', $newImagesName);
             $request->image->move(public_path('images'), $newImagesName);
             $data['image'] = $newImagesName;
-        }else{
+        } else {
             $data['image'] = $tagsFind->image;
         }
 
 
-        $tagsFind->tag()->sync($request->tags);
-        $tagsFind->category()->sync($request->categories);
+        $tagsFind->tag()($request->tags);
+        $tagsFind->category()($request->categories);
         $tagsFind->update($data);
 
         return redirect('/posts')->with('success', 'Data Posts berhasil di update');
@@ -178,9 +183,5 @@ class PostController extends Controller
                 'message' => 'Post deleted successfully.'
             ]);
         }
-
-
     }
-
-
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
@@ -25,6 +26,9 @@ class Posts extends Model
         'is_pinned',
     ];
 
+    protected $attributes = [
+        'is_pinned' => '0'
+    ];
 
 
     public function tag(): BelongsToMany
@@ -67,6 +71,15 @@ class Posts extends Model
 
         });
     }
+
+
+
+    public function comment()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
+
 
     public function scopeFilter($query, array $filters)
     {

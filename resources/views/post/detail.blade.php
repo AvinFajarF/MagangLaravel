@@ -1,119 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Konten</title>
-    <link rel="stylesheet" href="{!! asset('assets/css/comments.css') !!}">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    {{-- Navbar --}}
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Carousel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Back</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    {{-- Content --}}
-    <div class="container d-flex align-items-center justify-content-center text-center"
-        style="margin-top: 20vh; margin-left: 23%">
-        <div class="row">
-            <div class="col-lg-8">
-                <img src="{{ asset('images/' . $data->image) }}" class="rounded border border-3 img-fluid mb-4"
-                    alt="Gambar Konten">
-                <h1 class="mb-3">{{ $data->title }}</h1>
-                <p class="text-muted mb-3">Diposting oleh <i>{{ $data->created_by }}</i> pada <span
-                        class="text-secondary">{{ $data->created_at }}</span></p>
-                <hr>
-                <div class="content mb-5">
-                    <p>{{ $data->content }}</p>
-                </div>
-            </div>
+{{-- navbar --}}
+
+<nav class="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 ">
+    <div class="container flex flex-wrap items-center justify-between mx-auto">
+        <a class="flex items-center">
+            <img src="https://w7.pngwing.com/pngs/406/94/png-transparent-newspaper-breaking-news-others-television-text-logo.png"
+                class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Detail Berita</span>
+        </a>
+
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul
+                class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a href="/"
+                        class="animate-bounce block py-2 pl-3 pr-4 text-white bg-slate-900 md:bg-transparent font-semibold md:p-0 dark:text-white"
+                        aria-current="page">Back</a>
+                </li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <div class="mb-5"></div>
+{{-- detail Content --}}
+<div class="container ">
+    <div class="flex justify-center items-center mt-10">
+        <img class="shadow-lg shadow-cyan-500/50 w-2/5 rounded-lg hover:opacity-50 hover:transition" src="{{ asset('images/'.$data->image) }}"
+            alt="" srcset="">
+    </div>
+    {{-- content --}}
+    <div class="content flex justify-center items-center mt-14">
+        <h2 class="font-semibold text-slate-900 text-2xl">{{$data->title}}</h2>
 
+    </div>
+    <p class="ml-80 relative -mb-5 mt-8 font-mono ">{{$data->created_at}}</p>
+    <hr class="bg-gray-800 mt-5 w-2/4 h-1 mx-auto">
 
+    <div class="paragraf mt-10">
+        <p class="w-4/5 p-16 font-serif mx-auto">{{$data->content}}</p>
+    </div>
+</div>
+{{-- Coments Form --}}
 
-    <!-- resources/views/posts/index.blade.php -->
+<hr class="w-2/5 p-0.5 ml-3 mt-40 bg-slate-600 ">
+<div class="comments p-14 w-2/4 -mt-5  rounded-sm opacity-75 ">
 
-
-    <section class="content-item" id="comments">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <form action="{{route('comments')}}" method="POST">
-                        @csrf
-                        <h3 class="pull-left">New Comment</h3>
-                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-sm-3 col-lg-2 hidden-xs">
-                                    @if (Auth::user()->images)
-                                        <img class="img-responsive" src="{{ asset('images/' . Auth::user()->images) }}"
-                                            width="100" alt="">
-                                    @else
-                                        <img class="img-responsive"
-                                            src="{{ asset('images/person-default-23122312.gif') }}" width="100"
-                                            alt="">
-                                    @endif
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                    <input type="hidden" name="post_id" value="{{ $data->id }}">
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    <textarea class="form-control" name="content" id="message" placeholder="Your message" required=""></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                    <h3>{{$comments->count()}} Comments</h3>
-                    @foreach ($comments as $item)
-                    <div class="media">
-                        <img class="img-responsive" src="{{ asset('images/' . $item->user->images) }}"
-                        width="100" alt="">
-                        <div class="media-body">
-
-                            <h4 class="media-heading mt-4">{{$item->user->name}}</h4>
-                            <p>{{$item->content}}
-                            </p>
-                            <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>{{$item->created_at}}</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    @endforeach
+    @if (auth()->check())
 
 
-                </div>
-            </div>
+    <form action="{{route('comments')}}" method="post">
+        <div>
+            @csrf
+            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+            <input name="post_id" type="hidden" value="{{$data->id}}">
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">Your message</label>
+            <textarea name="content" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-2xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-xl " placeholder="Leave a comment..."></textarea>
+            <button type="submit" class="bg-blue-700 hover:bg-blue-300 text-white font-semibold shadow-xl p-3 rounded-lg mt-4 shadow-blue-500/50 ">Submit</button>
+
         </div>
-    </section>
+    </form>
+
+    @endif
+</div>
 
 
+@foreach ($comment as $item)
+<div class="list">
+    <div>
+        @if ($item->user->images)
+        <img src="{{asset('images/'.$item->user->images)}}" class="w-20 ml-32 mt-10 rounded-full" alt="" srcset="">
+        @else
+        <img src="{{asset('images/default-122313121.jpg')}}" class="w-20 ml-32 mt-10 rounded-full" alt="" srcset="">
+        @endif
 
+        <h2 class="ml-44 font-semibold text-lg">{{$item->user->name}}</h2>
+        <p class="ml-64">{{$item->content}}</p>
+    </div>
+</div>
+@endforeach
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<br><br><br><br><br><br>
 </body>
 
 </html>

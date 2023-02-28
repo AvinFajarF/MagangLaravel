@@ -3,9 +3,12 @@ function destroy(event) {
 
     $("#delete-modal").modal("show");
 
-    $("#confirm-delete").on("click", function () {
-        const confirmButton = $(this);
-        confirmButton.prop("disabled", true);
+    $("#confirm-delete").off().on("click", function () {
+        const confirmDelete = $(this);
+        const confirmDeleteText = confirmDelete.text();
+
+        confirmDelete.prop("disabled", true);
+        confirmDelete.text(`Loading ...`);
 
         $.ajax({
             url: event.target.action,
@@ -17,7 +20,7 @@ function destroy(event) {
                 $("#delete-modal").modal("hide");
                 confirmDelete.prop("disabled", false);
                 confirmDelete.text(confirmDeleteText);
-                toastr.success(res.message);
+                toastr.success(res.message)
             })
             .fail(function (err) {
                 confirmDelete.prop("disabled", false);
@@ -26,9 +29,3 @@ function destroy(event) {
             });
     });
 }
-
-$(document).ready(function () {
-    $(".close-modal").click(function () {
-        $("#delete-modal").modal("hide");
-    });
-});

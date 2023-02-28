@@ -31,7 +31,7 @@ class CategoriesController extends Controller
         $request->validate(
             [
                 'name' => 'string|required',
-                'description' => 'string|nullabel'
+                'description' => 'string'
             ],
             [
                 'name.string' => 'category harus bernilai string',

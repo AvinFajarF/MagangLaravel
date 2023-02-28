@@ -101,16 +101,14 @@
                                     <a href="{{ route('welcome', ['tag' => $tags->name]) }}">#{{ $tags->name }}</a>
                                 </p>
                             @endforeach
+                            @foreach ($item->category as $category)
+                            <small class="d-inline-block me-2"><a
+                                    class="text-decoration-none p-1 rounded-3 text-dark"
+                                    href="{{ route('welcome', ['category' => $category->name]) }}"
+                                    style="border:1px solid black">{{ $category->name }}</a></small>
+                        @endforeach
                         </div>
                         <div class="my-3">
-                            @foreach ($item->category as $category)
-                                <small class="d-inline-block me-2"><a
-                                        class="text-decoration-none p-1 rounded-3 text-dark"
-                                        href="{{ route('welcome', ['category' => $category->name]) }}"
-                                        style="border:1px solid black">{{ $category->name }}</a></small>
-                            @endforeach
-
-
                             <a href="/news/{{ $item->slug }}" class="btn btn-primary">Details</a>
                         </div>
                     </div>

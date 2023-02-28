@@ -79,86 +79,77 @@
 
 
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{!! asset('assets/css/login.css') !!}">
-    <title>Hello, world!</title>
-
-    <style>
-        $font-src: "../font/";
-
-        @font-face {
-            font-family: 'Hornbach';
-            src: url('#{$font-src}/KaushanScript-Regular.otf') format('truetype');
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
-
 <body>
+    <div class="2xl:container h-screen m-auto">
+        <div hidden class="fixed inset-0 w-7/12 lg:block">
 
 
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand">Navbar</a>
-            <a href="{{ route('register') }}" class="d-flex btn btn-warning rounded-pill">Register</a>
+            <video class="w-full h-full object-cover" loop autoplay src="{{asset("assets/images/video.mp4")}}" poster="../public/images/bg.jpg"></video>
         </div>
-    </nav>
+        <div hidden role="hidden" class="fixed inset-0 w-6/12 ml-auto bg-white bg-opacity-70 backdrop-blur-xl lg:block"></div>
+        <div class="relative h-full ml-auto lg:w-6/12">
+            <div class="m-auto py-12 px-6 sm:p-20 xl:w-10/12">
+                <div class="space-y-4">
+                    <img class="w-80 mx-auto sm:w-auto" src="{{asset("assets/images/password.jpeg")}}" alt="" srcset="">
+                    <p class=" font-medium text-lg text-gray-600">Welcome to Portal Berita ! Login first</p>
+                </div>
 
 
-    <div class="container">
-        <div class="row py-2 mt-1 align-items-center">
-            <!-- For Demo Purpose -->
-            <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-                <img src="{!! asset('images/testerr.jpg') !!}" alt="" class="img-fluid mb-3 d-none d-md-block foto">
-                {{-- <h1 class="ms-4">Login</h1>
-                    <p class="font-italic text-muted mb-0 ms-5">Silahkan login dahulu.</p> --}}
 
-            </div>
 
-            <!-- Registeration Form -->
-            <div class="col-md-7 col-lg-6 ml-auto forum">
-                <form method="POST" action="{{ route('login') }}">
+
+                <form method="POST" action="{{ route('login') }}" class=" space-y-6 py-6">
                     @csrf
-                    <h5 id="logind">Log In</h5>
-                    <p id="loginss">Silahkan login terlebih dahulu agar dapat bisa mengakses web</p>
-                    <div class="login">
-                        <div class="row mb-3">
-                            <input type="email" id="email" type="email"
-                                class="rounded-pill w-75 form-control @error('email') is-invalid @enderror"
-                                placeholder="email" name="email" value="{{ old('email') }}" required
-                                autocomplete="email" autofocus>
-                        </div>
-
-                        <div class="row mb-3">
-                            <input id="password" type="password"
-                                class="rounded-pill w-75 form-control @error('password') is-invalid @enderror"
-                                placeholder="password" name="password" required autocomplete="current-password">
-                        </div>
+                    <div>
+                        <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        class="border shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none"
+                        >
                     </div>
+
+                    <div class="flex flex-col items-end">
+                        <input
+                        name="password"
+                                type="password"
+                                placeholder="Password"
+                                class="shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none"
+                        >
+                        @if (Route::has('password.request'))
+                        <button type="reset" class="w-max p-3 -mr-3">
+                            <a class="text-sm tracking-wide text-blue-600" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        </button>
+                        @endif
+                    </div>
+
+                    <div>
+                        <button type="submit" class="shadow-lg border w-full px-6 py-3 rounded-xl bg-sky-500 transition hover:bg-sky-600 focus:bg-sky-600 text-white active:bg-sky-800">
+                            {{ __('Login') }}
+                        </button>
+                        <a href="/register" type="reset" class="w-max p-3 -ml-3">
+                            <span class="text-sm tracking-wide text-blue-600">Create new account</span>
+                        </a>
+                    </div>
+                </form>
+
+
             </div>
-
-            <button class="btn btn-primary w-25 rounded-pill" id="btns" type="submit">
-                {{ __('Login') }}</button>
-
-            </form>
         </div>
     </div>
-    </div>
-    </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
 </body>
-
 </html>

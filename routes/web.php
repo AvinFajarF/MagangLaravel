@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\DetailUsersController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MyProfileController;
@@ -25,12 +26,17 @@ use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 
+
+
 Route::controller(IndexController::class)->group(function () {
     Route::get('/',  'index')->name('welcome');
-    Route::get('/news/{slug}', 'detail')->name('news.detail');
-    Route::post('/', 'StoreComment')->name("comments");
+    Route::get('/news/{post:slug}', 'detail')->name('news.detail');
 
 });
+Route::post('/', [CommentsController::class,'StoreComment'])->name("comments");
+// Route::get('/news/{post:slug}', [CommentsController    ::class, 'index'])->name('comments.index');
+
+
 
 
 Auth::routes(['verify' => true]);

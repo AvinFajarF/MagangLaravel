@@ -40,21 +40,12 @@ class IndexController extends Controller
 
     public function detail($slug)
     {
-
-        $comments = Comments::with(['user','post'])->get();
         $data = Posts::where('slug', $slug)->first();
-        return view('post.detail', ['data' => $data, 'comments' => $comments]);
+        $comment = Comments::where('post_id', $data->id)->get();
+        return view('post.detail', ['data' => $data, 'comment' => $comment]);
     }
 
 
-    public function StoreComment(Request $request)
-    {
-         Comments::create([
-            'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
-            'content' => $request->content,
-        ]);
-        return redirect('/');
-    }
+
 
 }
