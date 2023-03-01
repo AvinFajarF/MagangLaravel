@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
 
@@ -34,19 +35,19 @@
 {{-- detail Content --}}
 <div class="container ">
     <div class="flex justify-center items-center mt-10">
-        <img class="shadow-lg shadow-cyan-500/50 w-2/5 rounded-lg hover:opacity-50 hover:transition" src="{{ asset('images/'.$data->image) }}"
-            alt="" srcset="">
+        <img class="shadow-lg shadow-cyan-500/50 w-2/5 rounded-lg hover:opacity-50 hover:transition"
+            src="{{ asset('images/' . $data->image) }}" alt="" srcset="">
     </div>
     {{-- content --}}
     <div class="content flex justify-center items-center mt-14">
-        <h2 class="font-semibold text-slate-900 text-2xl">{{$data->title}}</h2>
+        <h2 class="font-semibold text-slate-900 text-2xl">{{ $data->title }}</h2>
 
     </div>
-    <p class="ml-80 relative -mb-5 mt-8 font-mono ">{{$data->created_at}}</p>
+    <p class="ml-80 relative -mb-5 mt-8 font-mono ">{{ $data->created_at }}</p>
     <hr class="bg-gray-800 mt-5 w-2/4 h-1 mx-auto">
 
     <div class="paragraf mt-10">
-        <p class="w-4/5 p-16 font-serif mx-auto">{{$data->content}}</p>
+        <p class="w-4/5 p-16 font-serif mx-auto">{{ $data->content }}</p>
     </div>
 </div>
 {{-- Coments Form --}}
@@ -55,38 +56,49 @@
 <div class="comments p-14 w-2/4 -mt-5  rounded-sm opacity-75 ">
 
     @if (auth()->check())
+        <form action="{{ route('comments') }}" method="post">
+            <div>
+                @csrf
+                <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
+                <input name="post_id" type="hidden" value="{{ $data->id }}">
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">Your message</label>
+                <textarea name="content" id="message" rows="4"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-2xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-xl "
+                    placeholder="Leave a comment..."></textarea>
+                <button type="submit"
+                    class="bg-blue-700 hover:bg-blue-300 text-white font-semibold shadow-xl p-3 rounded-lg mt-4 shadow-blue-500/50 ">Submit</button>
 
-
-    <form action="{{route('comments')}}" method="post">
-        <div>
-            @csrf
-            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
-            <input name="post_id" type="hidden" value="{{$data->id}}">
-            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 ">Your message</label>
-            <textarea name="content" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-2xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-xl " placeholder="Leave a comment..."></textarea>
-            <button type="submit" class="bg-blue-700 hover:bg-blue-300 text-white font-semibold shadow-xl p-3 rounded-lg mt-4 shadow-blue-500/50 ">Submit</button>
-
-        </div>
-    </form>
-
+            </div>
+        </form>
     @endif
 </div>
 
 
-@foreach ($comment as $item)
-<div class="list">
-    <div>
-        @if ($item->user->images)
-        <img src="{{asset('images/'.$item->user->images)}}" class="w-20 ml-32 mt-10 rounded-full" alt="" srcset="">
-        @else
-        <img src="{{asset('images/default-122313121.jpg')}}" class="w-20 ml-32 mt-10 rounded-full" alt="" srcset="">
-        @endif
 
-        <h2 class="ml-44 font-semibold text-lg">{{$item->user->name}}</h2>
-        <p class="ml-64">{{$item->content}}</p>
-    </div>
-</div>
+@foreach ($comment as $item)
+
+<div class="ml-28 max-w-sm p-6 bg-white border  border-gray-200 rounded-lg shadow-red-300 shadow-lg flex">
+
+    @if ($item->user->images)
+    <img src="{{asset('images/'.$item->user->images)}}"  class="mb-2  w-24 h-16 shadow-md border rounded-full" alt="" srcset="">
+    @else
+    <img src="{{asset('images/default-122313121.jpg')}}"  class="mb-2  w-24 h-16 shadow-md border rounded-full" alt="" srcset="">
+    @endif
+
+    <div class="isi">
+
+        <h2 class="ml-5 font-semibold font-mono">{{$item->user->name}}</h2>
+
+            <p class="mt-4 ml-4  font-light text-gray-7 ">{{$item->content}}.</p>
+            <form action="{{route('delete.comment',$item->id)}}" method="post">
+                @csrf
+                @method("DELETE")
+                <button class="bg-red-500 rounded-lg ml-52 p-0.5 w-9"><i class="bi bi-trash"></i></button>
+            </form>
+        </div>
+</div><br>
 @endforeach
+
 
 <br><br><br><br><br><br>
 </body>

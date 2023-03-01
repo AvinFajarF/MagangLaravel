@@ -42,6 +42,7 @@ class IndexController extends Controller
     {
         $data = Posts::where('slug', $slug)->first();
         $comment = Comments::where('post_id', $data->id)->get();
+        
         return view('post.detail', ['data' => $data, 'comment' => $comment]);
     }
 

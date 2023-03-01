@@ -95,8 +95,9 @@
     <div class="2xl:container h-screen m-auto">
         <div hidden class="fixed inset-0 w-7/12 lg:block">
 
+            <img src="{{asset("assets/images/animasi.gif")}}" class="w-full h-full object-cover" alt="" srcset="">
 
-            <video class="w-full h-full object-cover" loop autoplay src="{{asset("assets/images/video.mp4")}}" poster="../public/images/bg.jpg"></video>
+            {{-- <video class="w-full h-full object-cover" loop autoplay src="{{asset("assets/images/kerja.gif`")}}" poster="../public/images/bg.jpg"></video> --}}
         </div>
         <div hidden role="hidden" class="fixed inset-0 w-6/12 ml-auto bg-white bg-opacity-70 backdrop-blur-xl lg:block"></div>
         <div class="relative h-full ml-auto lg:w-6/12">

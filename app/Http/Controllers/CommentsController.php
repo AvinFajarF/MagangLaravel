@@ -23,6 +23,12 @@ class CommentsController extends Controller
         return back();
     }
 
+    public function destroy(Comments $id)
+    {
+        $id->destroy($id->id);
+        return redirect()->back();
+    }
+
     // public function show(Posts $post)
     // {
     //     $data = Comments::where('post_id', $post->id)->get();
