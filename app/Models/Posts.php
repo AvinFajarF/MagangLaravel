@@ -23,6 +23,7 @@ class Posts extends Model
         'created_by',
         'post_id',
         'tag_id',
+        'views',
         'is_pinned',
     ];
 
@@ -94,6 +95,11 @@ class Posts extends Model
                 $query->where('name', $filters['tag']);
             });
         });
+    }
+
+    public function incrementViews()
+    {
+        $this->increment('views');
     }
 
 

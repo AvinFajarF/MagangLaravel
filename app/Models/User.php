@@ -15,6 +15,12 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
     use Sluggable;
 
+    public function totalPostViews()
+    {
+        return $this->posts()->sum('views');
+    }
+
+
     public function posts(){
         return $this->hasMany(Post::class);
     }

@@ -52,6 +52,10 @@
 </div>
 {{-- Coments Form --}}
 
+
+
+<br><br><br>
+<h5 class="-mb-36 ml-8 font-mono">Jumlah pengunjung: {{$data->views}}</h5>
 <hr class="w-2/5 p-0.5 ml-3 mt-40 bg-slate-600 ">
 <div class="comments p-14 w-2/4 -mt-5  rounded-sm opacity-75 ">
 
@@ -72,6 +76,8 @@
         </form>
     @endif
 </div>
+
+
 
 
 
@@ -98,6 +104,8 @@
         </div>
 </div><br>
 @endforeach
+
+
 
 
 <br><br><br><br><br><br>

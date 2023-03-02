@@ -38,11 +38,11 @@ class IndexController extends Controller
     ]);
     }
 
-    public function detail($slug)
+    public function detail($slug,Request $request)
     {
         $data = Posts::where('slug', $slug)->first();
         $comment = Comments::where('post_id', $data->id)->get();
-        
+        $views =  $data->incrementViews();
         return view('post.detail', ['data' => $data, 'comment' => $comment]);
     }
 
