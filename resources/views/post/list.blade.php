@@ -95,13 +95,12 @@
     </script>
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 
+
+    <script src="{{ asset('assets/js/user/delete.js') }}"></script>
     <script>
         const successMessage = "{{ session()->get('success') }}";
         if (successMessage) {
             toastr.success(successMessage)
         }
-        let postList = "{{ route('posts.list') }}"
     </script>
-
-    <script src="{{ asset('assets/js/user/delete.js') }}"></script>
 @endpush

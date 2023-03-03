@@ -50,11 +50,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $userDelete = $user->delete();
-        if ($userDelete) {
-            Session::flash('success', 'Berhasil menghapus data');
-        }
 
-        return redirect()->back();
+        if ($userDelete) {
+            return response()->json([
+                'message' => 'User deleted successfully.'
+            ]);
+        }
     }
 
     public function detail(User $id)
@@ -145,7 +146,7 @@ class UserController extends Controller
 
         User::create($data);
         return redirect('/user');
-        
+
 
     }
 }

@@ -34,6 +34,7 @@ Route::controller(IndexController::class)->group(function () {
 });
 Route::post('/', [CommentsController::class,'StoreComment'])->name("comments");
 Route::delete("/news/comment/{id}",[CommentsController::class, 'destroy'])->name("delete.comment");
+Route::put("/news/comment/{id}",[CommentsController::class, 'update'])->name("update.comment");
 // Route::get('/news/{post:slug}', [CommentsController    ::class, 'index'])->name('comments.index');
 
 

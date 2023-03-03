@@ -80,10 +80,10 @@ class TagsController extends Controller
     {
         $tagDelete = $id->delete();
         if ($tagDelete) {
-            Session::flash('success', 'Berhasil menghapus data');
+            return response()->json([
+                'message' => 'Tag deleted successfully.'
+            ]);
         }
-
-        return redirect()->back();
     }
 
     public function update(Request $request, Tags $id)
