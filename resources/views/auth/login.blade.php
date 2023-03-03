@@ -81,6 +81,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,22 +89,41 @@
     <title>Login</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
+
 <body>
     <div class="2xl:container h-screen m-auto">
         <div hidden class="fixed inset-0 w-7/12 lg:block">
 
-            <img src="{{asset("assets/images/animasi.gif")}}" class="w-full h-full object-cover" alt="" srcset="">
+            <img src="{{ asset('assets/images/animasi.gif') }}" class="w-full h-full object-cover" alt=""
+                srcset="">
 
             {{-- <video class="w-full h-full object-cover" loop autoplay src="{{asset("assets/images/kerja.gif`")}}" poster="../public/images/bg.jpg"></video> --}}
         </div>
-        <div hidden role="hidden" class="fixed inset-0 w-6/12 ml-auto bg-white bg-opacity-70 backdrop-blur-xl lg:block"></div>
+        <div hidden role="hidden"
+            class="fixed inset-0 w-6/12 ml-auto bg-white bg-opacity-70 backdrop-blur-xl lg:block"></div>
         <div class="relative h-full ml-auto lg:w-6/12">
             <div class="m-auto py-12 px-6 sm:p-20 xl:w-10/12">
                 <div class="space-y-4">
-                    <img class="w-80 mx-auto sm:w-auto" src="{{asset("assets/images/password.jpeg")}}" alt="" srcset="">
+
+                    @if (Session::has('message'))
+                        <div role="alert">
+                            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                                Blocked
+                            </div>
+                            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                                {{ Session::get('message') }}
+
+                            </div>
+                        </div>
+                    @endif
+
+                    <img class="w-80 mx-auto sm:w-auto" src="{{ asset('assets/images/password.jpeg') }}" alt=""
+                        srcset="">
                     <p class=" font-medium text-lg text-gray-600">Welcome to Portal Berita ! Login first</p>
                 </div>
 
@@ -114,32 +134,25 @@
                 <form method="POST" action="{{ route('login') }}" class=" space-y-6 py-6">
                     @csrf
                     <div>
-                        <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        class="border shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none"
-                        >
+                        <input name="email" type="email" placeholder="Email"
+                            class="border shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none">
                     </div>
 
                     <div class="flex flex-col items-end">
-                        <input
-                        name="password"
-                                type="password"
-                                placeholder="Password"
-                                class="shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none"
-                        >
+                        <input name="password" type="password" placeholder="Password"
+                            class="shadow-lg w-full py-3 px-6 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none">
                         @if (Route::has('password.request'))
-                        <button type="reset" class="w-max p-3 -mr-3">
-                            <a class="text-sm tracking-wide text-blue-600" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        </button>
+                            <button type="reset" class="w-max p-3 -mr-3">
+                                <a class="text-sm tracking-wide text-blue-600" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+                            </button>
                         @endif
                     </div>
 
                     <div>
-                        <button type="submit" class="shadow-lg border w-full px-6 py-3 rounded-xl bg-sky-500 transition hover:bg-sky-600 focus:bg-sky-600 text-white active:bg-sky-800">
+                        <button type="submit"
+                            class="shadow-lg border w-full px-6 py-3 rounded-xl bg-sky-500 transition hover:bg-sky-600 focus:bg-sky-600 text-white active:bg-sky-800">
                             {{ __('Login') }}
                         </button>
                         <a href="/register" type="reset" class="w-max p-3 -ml-3">
@@ -153,4 +166,5 @@
         </div>
     </div>
 </body>
+
 </html>

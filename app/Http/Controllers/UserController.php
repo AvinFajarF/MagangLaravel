@@ -33,6 +33,8 @@ class UserController extends Controller
                     '<img src="' . asset('images/' . $user->images) . '" width="50px" class="rounded-circle">'
                     :
                     '<img src="' . asset('images/person-default-23122312.gif') . '" class="img-circle rounded-circle" width="50px">';
+            })->editColumn('role', function ($role) {
+                return $role->role;
             })
             ->addIndexColumn()
             ->setRowClass(function ($user) {

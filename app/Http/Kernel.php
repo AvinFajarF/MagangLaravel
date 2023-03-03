@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'xss' => \App\Http\Middleware\xss::class,
         'spam' => \Spatie\Honeypot\ProtectAgainstSpam::class,
         'member' => \App\Http\Middleware\member::class,
+        'member.status' => \App\Http\Middleware\MemberStatus::class,
 
     ];
 }

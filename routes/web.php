@@ -26,16 +26,17 @@ use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 
+Route::middleware("is_blocked")->group(function() {
+    Route::controller(IndexController::class)->group(function () {
+        Route::get('/',  'index')->name('welcome');
+        Route::get('/news/{post:slug}', 'detail')->name('news.detail');
+    });
+    Route::post('/', [CommentsController::class,'StoreComment'])->name("comments");
+    Route::delete("/news/comment/{id}",[CommentsController::class, 'destroy'])->name("delete.comment");
+    Route::put("/news/comment/{id}",[CommentsController::class, 'update'])->name("update.comment");
 
-
-Route::controller(IndexController::class)->group(function () {
-    Route::get('/',  'index')->name('welcome');
-    Route::get('/news/{post:slug}', 'detail')->name('news.detail');
 });
-Route::post('/', [CommentsController::class,'StoreComment'])->name("comments");
-Route::delete("/news/comment/{id}",[CommentsController::class, 'destroy'])->name("delete.comment");
-Route::put("/news/comment/{id}",[CommentsController::class, 'update'])->name("update.comment");
-// Route::get('/news/{post:slug}', [CommentsController    ::class, 'index'])->name('comments.index');
+
 
 
 
